@@ -103,6 +103,7 @@ async function main() {
       
       child.on('exit', (code) => process.exit(code || 0));
     } else {
+      process.argv = ['node', scriptPath, ...scriptArgs];
       await import(scriptPath);
     }
   } catch {
