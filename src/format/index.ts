@@ -66,12 +66,10 @@ function isYarnPnP(): boolean {
 }
 
 function resolveConfigFile(): string {
-  // For Yarn PnP, prefer CJS version due to compatibility issues
   const preferCJS = isYarnPnP()
 
   const possiblePaths = preferCJS
     ? [
-        // Try CJS first for Yarn PnP
         () => {
           const cjsPath = path.join(__dirname, '../../prettier.config.cjs')
           if (fs.existsSync(cjsPath)) return cjsPath
@@ -84,7 +82,6 @@ function resolveConfigFile(): string {
         },
       ]
     : [
-        // Try ESM first for normal environments
         () => {
           const jsPath = path.join(__dirname, '../../prettier.config.js')
           if (fs.existsSync(jsPath)) return jsPath
