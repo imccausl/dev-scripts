@@ -16,20 +16,18 @@
     "lint": "./lib/lint/index.js"
   },
   "exports": {
-    "eslint-config": "./src/lint/eslint.ts",
-    "tsconfig": "./src/types/tsconfig.default.json"
+    "./eslint-config": "./src/lint/eslint.ts",
+    "./tsconfig.json": "./src/types/tsconfig.default.json"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "tag": "latest",
     "exports": {
-      "eslint-config": {
+      "./eslint-config": {
         "default": "./lib/lint/eslint.js",
         "types": "./lib/lint/eslint.d.ts"
       },
-      "tsconfig": {
-        "default": "./lib/types/tsconfig.default.json"
-      }
+      "./tsconfig.json": "./lib/types/tsconfig.default.json"
     }
   },
   "repository": {
