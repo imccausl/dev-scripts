@@ -20,13 +20,13 @@
     "./eslint-config/base": "./src/lint/config/base.ts",
     "./prettier-config": {
       "import": {
-        "default": "./src/format/config.default.js"
+        "default": "./src/format/config/config.default.js"
       },
       "require": {
-        "default": "./src/format/config.default.cjs"
+        "default": "./src/format/config/config.default.cjs"
       },
       "default": {
-        "default": "./lib/format/config.default.cjs"
+        "default": "./lib/format/config/config.default.cjs"
       }
     },
     "./tsconfig.json": "./src/types/tsconfig.default.json"
@@ -45,16 +45,16 @@
       },
       "./prettier-config": {
         "import": {
-          "types": "./lib/format/config.default.d.ts",
-          "default": "./lib/format/config.default.js"
+          "types": "./lib/format/config/config.default.d.ts",
+          "default": "./lib/format/config/config.default.js"
         },
         "require": {
-          "types": "./lib/format/config.default.d.cts",
-          "default": "./lib/format/config.default.cjs"
+          "types": "./lib/format/config/config.default.d.cts",
+          "default": "./lib/format/config/config.default.cjs"
         },
         "default": {
-          "types": "./lib/format/config.default.d.cts",
-          "default": "./lib/format/config.default.cjs"
+          "types": "./lib/format/config/config.default.d.cts",
+          "default": "./lib/format/config/config.default.cjs"
         }
       },
       "./tsconfig.json": "./lib/types/tsconfig.default.json"

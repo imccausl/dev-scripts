@@ -1,42 +1,17 @@
 import { spawn } from 'node:child_process'
 import fs from 'node:fs'
-import { createRequire } from 'node:module'
 import path, { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
+import {
+  detectPackageManager,
+  getExecCommand,
+  isYarnPnP,
+  resolveConfigFile,
+} from '../util/index.js'
+
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
-const require = createRequire(import.meta.url)
-
-function detectPackageManager(): { manager: string; hasExec: boolean } {
-  if (fs.existsSync('yarn.lock')) {
-    try {
-      const { execSync } = require('child_process')
-      const yarnVersion = execSync('yarn --version', {
-        encoding: 'utf8',
-      }).trim()
-      const majorVersion = parseInt(yarnVersion.split('.')[0])
-      return { manager: 'yarn', hasExec: majorVersion >= 2 }
-    } catch {
-      return { manager: 'yarn', hasExec: false }
-    }
-  }
-
-  if (fs.existsSync('pnpm-lock.yaml')) return { manager: 'pnpm', hasExec: true }
-  if (fs.existsSync('package-lock.json'))
-    return { manager: 'npm', hasExec: false }
-  return { manager: 'npx', hasExec: false }
-}
-
-function getExecCommand(manager: string, hasExec: boolean): [string, string[]] {
-  if (manager === 'yarn' && hasExec) {
-    return ['yarn', ['exec']]
-  }
-  if (manager === 'pnpm' && hasExec) {
-    return ['pnpm', ['exec']]
-  }
-  return ['npx', []]
-}
 
 function hasExistingConfig(): boolean {
   const configFiles = [
@@ -57,54 +32,6 @@ function hasExistingConfig(): boolean {
   return configFiles.some((file) => fs.existsSync(file))
 }
 
-function isYarnPnP(): boolean {
-  return (
-    process.versions.pnp !== undefined ||
-    fs.existsSync('.pnp.cjs') ||
-    fs.existsSync('.pnp.js')
-  )
-}
-
-function resolveConfigFile(): string {
-  const preferCJS = isYarnPnP()
-
-  const possiblePaths = preferCJS
-    ? [
-        () => {
-          const cjsPath = path.join(__dirname, '../../prettier.config.cjs')
-          if (fs.existsSync(cjsPath)) return cjsPath
-          throw new Error('File not found')
-        },
-        () => {
-          const jsPath = path.join(__dirname, '../../prettier.config.js')
-          if (fs.existsSync(jsPath)) return jsPath
-          throw new Error('File not found')
-        },
-      ]
-    : [
-        () => {
-          const jsPath = path.join(__dirname, '../../prettier.config.js')
-          if (fs.existsSync(jsPath)) return jsPath
-          throw new Error('File not found')
-        },
-        () => {
-          const cjsPath = path.join(__dirname, '../../prettier.config.cjs')
-          if (fs.existsSync(cjsPath)) return cjsPath
-          throw new Error('File not found')
-        },
-      ]
-
-  for (const resolver of possiblePaths) {
-    try {
-      return resolver()
-    } catch {
-      continue
-    }
-  }
-
-  throw new Error('Could not find prettier config file')
-}
-
 export async function runFormat(): Promise<void> {
   const args = process.argv.slice(2)
 
@@ -122,7 +49,10 @@ export async function runFormat(): Promise<void> {
     const hasConfig = args.includes('--config') || hasExistingConfig()
 
     if (!hasConfig) {
-      const configPath = resolveConfigFile()
+      const configPath = resolveConfigFile(
+        './config/prettier.config',
+        isYarnPnP(),
+      )
       prettierArgs.push('--config', configPath)
     }
 
