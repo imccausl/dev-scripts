@@ -8,7 +8,7 @@
     "copy-assets": "tsx infrastructure/copy-assets.ts",
     "build": "yarn clean && yarn compile && yarn copy-assets",
     "publish": "semantic-release",
-    "lint": "tsx $(yarn bin lint) .",
+    "lint": "tsx src/lint/index.ts .",
     "lint:fix": "yarn lint --fix",
     "typecheck": "tsc --noEmit"
   },
