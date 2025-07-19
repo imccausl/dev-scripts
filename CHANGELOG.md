@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/imccausl/dev-scripts/compare/v1.1.1...v1.1.2) (2025-07-19)
+
+
+### Bug Fixes
+
+* lint script not giving any output ([#10](https://github.com/imccausl/dev-scripts/issues/10)) ([82d145e](https://github.com/imccausl/dev-scripts/commit/82d145e2de641bbb408e7df7f06f891f5a72bc8d))
+
 ## [1.1.1](https://github.com/imccausl/dev-scripts/compare/v1.1.0...v1.1.1) (2025-07-19)
 
 
