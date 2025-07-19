@@ -1,12 +1,42 @@
+import { spawn } from 'node:child_process';
 import fs from 'node:fs';
 import { createRequire } from 'node:module';
 import path, { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { spawn } from 'node:child_process';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const require = createRequire(import.meta.url);
+
+function detectPackageManager(): { manager: string; hasExec: boolean } {
+  if (fs.existsSync('yarn.lock')) {
+    try {
+      const { execSync } = require('child_process');
+      const yarnVersion = execSync('yarn --version', { encoding: 'utf8' }).trim();
+      const majorVersion = parseInt(yarnVersion.split('.')[0]);
+      return { 
+        manager: 'yarn', 
+        hasExec: majorVersion >= 2 
+      };
+    } catch {
+      return { manager: 'yarn', hasExec: false };
+    }
+  }
+  
+  if (fs.existsSync('pnpm-lock.yaml')) return { manager: 'pnpm', hasExec: true };
+  if (fs.existsSync('package-lock.json')) return { manager: 'npm', hasExec: false };
+  return { manager: 'npx', hasExec: false };
+}
+
+function getExecCommand(packageManager: string, hasExec: boolean): [string, string[]] {
+  if (packageManager === 'yarn' && hasExec) {
+    return ['yarn', ['exec']];
+  }
+  if (packageManager === 'pnpm' && hasExec) {
+    return ['pnpm', ['exec']];
+  }
+  return ['npx', []];
+}
 
 function resolveConfigFile(): string {
   const possiblePaths = [
@@ -54,17 +84,20 @@ async function runESLint(): Promise<void> {
       eslintArgs.push('--config', configPath);
     }
 
-   eslintArgs.push(...args);
+    eslintArgs.push(...args);
 
-const eslintModule = require.resolve('eslint');
-const eslintDir = path.dirname(eslintModule);
-const eslintCli = path.join(eslintDir, 'cli.js');
+    if (!args.some(arg => !arg.startsWith('-'))) {
+      eslintArgs.push('.');
+    }
 
-const child = spawn('node', [eslintCli, ...eslintArgs], {
-  stdio: 'inherit',
-  cwd: process.cwd(),
-  env: process.env
-});
+    const { manager, hasExec } = detectPackageManager();
+    const [command, execArgs] = getExecCommand(manager, hasExec);
+
+    const child = spawn(command, [...execArgs, 'eslint', ...eslintArgs], {
+      stdio: 'inherit',
+      cwd: process.cwd(),
+      env: process.env
+    });
 
     child.on('exit', (code) => {
       process.exit(code || 0);
