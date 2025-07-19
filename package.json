@@ -18,7 +18,17 @@
   "exports": {
     "./eslint-config": "./src/lint/eslint.ts",
     "./eslint-config/base": "./src/lint/config/base.ts",
-    "./prettier-config": "./src/format/config.default.ts",
+    "./prettier-config": {
+      "import": {
+        "default": "./src/format/config.default.js"
+      },
+      "require": {
+        "default": "./src/format/config.default.cjs"
+      },
+      "default": {
+        "default": "./lib/format/config.default.cjs"
+      }
+    },
     "./tsconfig.json": "./src/types/tsconfig.default.json"
   },
   "publishConfig": {
