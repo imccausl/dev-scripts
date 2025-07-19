@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/imccausl/dev-scripts/compare/v1.1.0...v1.1.1) (2025-07-19)
+
+
+### Bug Fixes
+
+* attempt to fix issue with plugin resolution ([#9](https://github.com/imccausl/dev-scripts/issues/9)) ([5ea6c82](https://github.com/imccausl/dev-scripts/commit/5ea6c82f3417830229a1d561704cc675322f4c3c))
+
 # [1.1.0](https://github.com/imccausl/dev-scripts/compare/v1.0.2...v1.1.0) (2025-07-19)
 
 
