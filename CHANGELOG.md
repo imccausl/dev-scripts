@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/imccausl/dev-scripts/compare/v1.1.2...v1.2.0) (2025-07-19)
+
+
+### Features
+
+* split config into base and default ([#11](https://github.com/imccausl/dev-scripts/issues/11)) ([19524a5](https://github.com/imccausl/dev-scripts/commit/19524a590a1532ff4fa7e31ea3c8d024e68654d4))
+
 ## [1.1.2](https://github.com/imccausl/dev-scripts/compare/v1.1.1...v1.1.2) (2025-07-19)
 
 
