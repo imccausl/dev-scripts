@@ -1,15 +1,11 @@
 const ignores = {
-  ignores: ['lib', '.yarn', 'node_modules', '.pnp.*'],
+    ignores: ['lib', '.yarn', 'node_modules', '.pnp.*'],
 }
 
 const files = {
-  files: ['../../../src/**/*.{ts,tsx,js,jsx}'],
+    files: ['../../../src/**/*.{ts,tsx,js,jsx}'],
 }
 
 export function createConfig(config) {
-  return [
-    { ...ignores },
-    ...config,
-    { ...files }
-  ]
+    return [{ ...ignores }, ...config, { ...files }]
 }

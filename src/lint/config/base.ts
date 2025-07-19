@@ -1,5 +1,5 @@
 import baseConfig from '@imccausl/eslint-config/base'
 
-import { createConfig } from './util.js';
+import { createConfig } from './util.js'
 
-export default createConfig(baseConfig);
+export default createConfig(baseConfig)

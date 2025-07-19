@@ -1,5 +1,5 @@
 import eslintConfig from '@imccausl/eslint-config'
 
-import { createConfig } from './util.js';
+import { createConfig } from './util.js'
 
-export default createConfig(eslintConfig);
+export default createConfig(eslintConfig)

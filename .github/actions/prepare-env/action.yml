@@ -2,27 +2,27 @@ name: prepare-env
 description: Prepares Envionrment
 
 runs:
-  using: "composite"
+    using: 'composite'
 
-  steps:
-    - name: Setup Node
-      uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
-      with:
-        node-version-file: ".nvmrc"
-        registry-url: "https://registry.npmjs.org"
+    steps:
+        - name: Setup Node
+          uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
+          with:
+              node-version-file: '.nvmrc'
+              registry-url: 'https://registry.npmjs.org'
 
-    - name: Enable corepack
-      run: corepack enable
-      shell: bash
+        - name: Enable corepack
+          run: corepack enable
+          shell: bash
 
-    - name: Restore Yarn Cache
-      uses: actions/cache@40c3b67b2955d93d83b27ed164edd0756bc24049 # v4.0.2
-      with:
-        path: |
-          .yarn/cache
-          .pnp.*
-        key: default-yarndeps-${{ hashFiles('yarn.lock') }}
+        - name: Restore Yarn Cache
+          uses: actions/cache@40c3b67b2955d93d83b27ed164edd0756bc24049 # v4.0.2
+          with:
+              path: |
+                  .yarn/cache
+                  .pnp.*
+              key: default-yarndeps-${{ hashFiles('yarn.lock') }}
 
-    - name: Yarn Install
-      run: yarn install --immutable
-      shell: bash
+        - name: Yarn Install
+          run: yarn install --immutable
+          shell: bash
