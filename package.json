@@ -1,6 +1,10 @@
 {
   "name": "@imccausl/dev",
+<<<<<<< Updated upstream
   "version": "1.0.0",
+=======
+  "version": "0.0.1",
+>>>>>>> Stashed changes
   "type": "module",
   "scripts": {
     "clean": "rm -rf lib",
