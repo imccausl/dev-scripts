@@ -80,7 +80,6 @@ function hasExistingConfig(): boolean {
 
 async function runESLint(): Promise<void> {
   const args = process.argv.slice(2);
-  
   if (args.includes('--version') || args.includes('-v')) {
     const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, '../../package.json'), 'utf8'));
     console.log(pkg.version || 'unknown');
