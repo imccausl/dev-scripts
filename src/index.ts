@@ -1,30 +1,28 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { parseArgs } from 'node:util';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-interface CLIOptions {
-  help?: boolean;
-  version?: boolean;
-}
 
 function parseCommandLineArgs() {
-  const { values, positionals } = parseArgs({
-    args: process.argv.slice(2),
-    options: {
-      help: { type: 'boolean', short: 'h' },
-      version: { type: 'boolean', short: 'v' },
-    },
-    allowPositionals: true,
-    strict: false, // Allow unknown options to pass through to scripts
-  });
+  const args = process.argv.slice(2);
+  
+  if (args.includes('--help') || args.includes('-h')) {
+    return { options: { help: true }, script: undefined, scriptArgs: [] };
+  }
+  
+  if (args.includes('--version') || args.includes('-v')) {
+    return { options: { version: true }, script: undefined, scriptArgs: [] };
+  }
+
+  const script = args[0];
+  const scriptArgs = args.slice(1);
 
   return {
-    options: values as CLIOptions,
-    script: positionals[0],
-    scriptArgs: positionals.slice(1),
+    options: {},
+    script,
+    scriptArgs,
   };
 }
 
@@ -96,9 +94,7 @@ async function main() {
 
   try {
     const scriptPath = await resolveScript(script);
-    
-    process.argv = ['node', scriptPath, ...scriptArgs];
-    
+
     if (scriptPath.endsWith('.ts')) {
       const { spawn } = await import('node:child_process');
       const child = spawn('yarn', ['tsx', scriptPath, ...scriptArgs], {
