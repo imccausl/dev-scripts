@@ -2,6 +2,9 @@
   "extends": [
     "./src/types/tsconfig.default.json"
   ],
+  "compilerOptions": {
+    "allowImportingTsExtensions": true,
+  },
   "include": [
     "src",
     "infrastructure",
