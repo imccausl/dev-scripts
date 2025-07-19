@@ -1,0 +1,10 @@
+{
+  "extends": [
+    "./src/types/tsconfig.default.json"
+  ],
+  "include": [
+    "src",
+    "infrastructure",
+    "eslint.config.js",
+  ]
+}

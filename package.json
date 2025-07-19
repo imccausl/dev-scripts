@@ -1,0 +1,60 @@
+{
+  "name": "@imccausl/dev",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "clean": "rm -rf lib",
+    "compile": "tsc -b ./tsconfig.build.json",
+    "copy-assets": "tsx infrastructure/copy-assets.ts",
+    "build": "yarn clean && yarn compile && yarn copy-assets"
+  },
+  "bin": {
+    "lint": "./lib/lint/index.js"
+  },
+  "exports": {
+    "eslint-config": "./src/lint/eslint.ts",
+    "tsconfig": "./src/types/tsconfig.default.json"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "tag": "latest",
+    "exports": {
+      "eslint-config": {
+        "default": "./lib/lint/eslint.js",
+        "types": "./lib/lint/eslint.d.ts"
+      },
+      "tsconfig": {
+        "default": "./lib/types/tsconfig.default.json"
+      }
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/imccausl/dev-scripts.git"
+  },
+  "files": [
+    "lib"
+  ],
+  "dependencies": {
+    "@eslint/js": "^9.30.1",
+    "@imccausl/eslint-config": "^4.0.3",
+    "@typescript-eslint/eslint-plugin": "^8.36.0",
+    "@typescript-eslint/parser": "^8.36.0",
+    "@typescript-eslint/types": "^8.37.0",
+    "eslint": "^9.30.1",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-import-resolver-typescript": "^3.6.1",
+    "eslint-plugin-import-x": "^4.16.1",
+    "typescript-eslint": "^8.36.0"
+  },
+  "peerDependencies": {
+    "eslint": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.15",
+    "@yarnpkg/sdks": "^3.2.2",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3"
+  },
+  "packageManager": "yarn@4.9.2"
+}
