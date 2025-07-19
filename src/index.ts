@@ -59,7 +59,7 @@ async function resolveScript(script: string): Promise<string> {
   
   for (const ext of extensions) {
     try {
-      const scriptUrl = new URL(`${script}/index${ext}`, baseUrl);
+      const scriptUrl = new URL(`commands/${script}${ext}`, baseUrl);
       const scriptPath = fileURLToPath(scriptUrl);
       
       if (existsSync(scriptPath)) {

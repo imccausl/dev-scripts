@@ -78,7 +78,7 @@ function hasExistingConfig(): boolean {
   return configFiles.some(file => fs.existsSync(file));
 }
 
-async function runESLint(): Promise<void> {
+export async function runLint(): Promise<void> {
   const args = process.argv.slice(2);
   if (args.includes('--version') || args.includes('-v')) {
     const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, '../../package.json'), 'utf8'));
@@ -126,7 +126,3 @@ const hasConfig = args.includes('--config') || args.includes('-c') || hasExistin
   }
 }
 
-runESLint().catch((error) => {
-  console.error('Unexpected error:', error);
-  process.exit(2);
-});
