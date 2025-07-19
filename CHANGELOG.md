@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/imccausl/dev-scripts/compare/v1.0.0...v1.0.1) (2025-07-19)
+
+
+### Bug Fixes
+
+* increment to valid version ([#6](https://github.com/imccausl/dev-scripts/issues/6)) ([0d71d3c](https://github.com/imccausl/dev-scripts/commit/0d71d3ca358af14c4f403f14f1a972a2d405e2eb))
+
 # 1.0.0 (2025-07-19)
 
 
