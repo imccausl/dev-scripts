@@ -40,15 +40,15 @@ function getExecCommand(packageManager: string, hasExec: boolean): [string, stri
 
 function resolveConfigFile(): string {
   const possiblePaths = [
-    () => require.resolve('../eslint.js'),
-    () => require.resolve('../eslint.ts'),
+    () => require.resolve('../config/index.js'),
+    () => require.resolve('../config/index.ts'),
     () => {
-      const jsPath = path.join(__dirname, './eslint.js');
+      const jsPath = path.join(__dirname, './config/index.js');
       if (fs.existsSync(jsPath)) return jsPath;
       throw new Error('File not found');
     },
     () => {
-      const tsPath = path.join(__dirname, './eslint.ts');
+      const tsPath = path.join(__dirname, './config/index.ts');
       if (fs.existsSync(tsPath)) return tsPath;
       throw new Error('File not found');
     },
@@ -65,6 +65,19 @@ function resolveConfigFile(): string {
   throw new Error('Could not find eslint config file');
 }
 
+function hasExistingConfig(): boolean {
+  const configFiles = [
+    'eslint.config.js',
+    'eslint.config.mjs',
+    'eslint.config.cjs',
+    'eslint.config.ts',
+    'eslint.config.mts',
+    'eslint.config.cts'
+  ];
+  
+  return configFiles.some(file => fs.existsSync(file));
+}
+
 async function runESLint(): Promise<void> {
   const args = process.argv.slice(2);
   
@@ -77,7 +90,7 @@ async function runESLint(): Promise<void> {
   try {
     const eslintArgs = [];
 
-    const hasConfig = args.includes('--config') || args.includes('-c');
+const hasConfig = args.includes('--config') || args.includes('-c') || hasExistingConfig();
     
     if (!hasConfig) {
       const configPath = resolveConfigFile();
@@ -92,7 +105,7 @@ async function runESLint(): Promise<void> {
 
     const { manager, hasExec } = detectPackageManager();
     const [command, execArgs] = getExecCommand(manager, hasExec);
-
+    
     const child = spawn(command, [...execArgs, 'eslint', ...eslintArgs], {
       stdio: 'inherit',
       cwd: process.cwd(),

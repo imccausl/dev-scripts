@@ -16,6 +16,7 @@
   "bin": "./lib/index.js",
   "exports": {
     "./eslint-config": "./src/lint/eslint.ts",
+    "./eslint-config/base": "./src/lint/config/base.ts",
     "./tsconfig.json": "./src/types/tsconfig.default.json"
   },
   "publishConfig": {
@@ -25,6 +26,10 @@
       "./eslint-config": {
         "default": "./lib/lint/eslint.js",
         "types": "./lib/lint/eslint.d.ts"
+      },
+      "./eslint-config/base": {
+        "default": "./lib/lint/config/base.js",
+        "types": "./lib/lint/config/base.d.ts"
       },
       "./tsconfig.json": "./lib/types/tsconfig.default.json"
     }
