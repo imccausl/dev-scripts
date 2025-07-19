@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/imccausl/dev-scripts/compare/v1.0.2...v1.1.0) (2025-07-19)
+
+
+### Features
+
+* add single entry point for scripts ([#8](https://github.com/imccausl/dev-scripts/issues/8)) ([9c62057](https://github.com/imccausl/dev-scripts/commit/9c620570aa7fc258477a676f37c49d6559be57ac))
+
 ## [1.0.2](https://github.com/imccausl/dev-scripts/compare/v1.0.1...v1.0.2) (2025-07-19)
 
 
