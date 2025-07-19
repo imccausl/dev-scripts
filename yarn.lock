@@ -372,6 +372,7 @@ __metadata:
     eslint-config-prettier: "npm:^10.1.5"
     eslint-import-resolver-typescript: "npm:^3.6.1"
     eslint-plugin-import-x: "npm:^4.16.1"
+    jiti: "npm:^2.4.2"
     tsx: "npm:^4.20.3"
     typescript: "npm:^5.8.3"
     typescript-eslint: "npm:^8.36.0"
@@ -2154,6 +2155,15 @@ __metadata:
     "@pkgjs/parseargs":
       optional: true
   checksum: 10c0/6acc10d139eaefdbe04d2f679e6191b3abf073f111edf10b1de5302c97ec93fffeb2fdd8681ed17f16268aa9dd4f8c588ed9d1d3bffbbfa6e8bf897cbb3149b9
+  languageName: node
+  linkType: hard
+
+"jiti@npm:^2.4.2":
+  version: 2.4.2
+  resolution: "jiti@npm:2.4.2"
+  bin:
+    jiti: lib/jiti-cli.mjs
+  checksum: 10c0/4ceac133a08c8faff7eac84aabb917e85e8257f5ad659e843004ce76e981c457c390a220881748ac67ba1b940b9b729b30fb85cbaf6e7989f04b6002c94da331
   languageName: node
   linkType: hard
 

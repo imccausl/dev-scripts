@@ -6,7 +6,11 @@
     "clean": "rm -rf lib",
     "compile": "tsc -b ./tsconfig.build.json",
     "copy-assets": "tsx infrastructure/copy-assets.ts",
-    "build": "yarn clean && yarn compile && yarn copy-assets"
+    "build": "yarn clean && yarn compile && yarn copy-assets",
+    "publish": "semantic-release",
+    "lint": "tsx $(yarn bin lint) .",
+    "lint:fix": "yarn lint --fix",
+    "typecheck": "tsc --noEmit"
   },
   "bin": {
     "lint": "./lib/lint/index.js"
@@ -53,6 +57,7 @@
   "devDependencies": {
     "@types/node": "^22.0.0",
     "@yarnpkg/sdks": "^3.2.2",
+    "jiti": "^2.4.2",
     "tsx": "^4.20.3",
     "typescript": "^5.8.3"
   },
