@@ -1,5 +1,10 @@
 import { execSync } from 'node:child_process'
 import fs from 'node:fs'
+import path, { dirname } from 'node:path'
+import { fileURLToPath } from 'node:url'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 export function getExecCommand(
   packageManager: string,
@@ -41,10 +46,7 @@ export function isYarnPnP(): boolean {
   )
 }
 
-export function resolveConfigFile(
-  configFilePath: string,
-  preferCJS = false,
-) {
+export function resolveConfigFile(configFilePath: string, preferCJS = false) {
   const defaultExtensionsToCheck = ['.ts', '.mjs', '.js', '.cjs']
   const extensionsToCheck = preferCJS
     ? defaultExtensionsToCheck.reverse()
@@ -67,6 +69,6 @@ export function resolveConfigFile(
   }
 
   throw new Error(
-    `Could not find config file. Checked for these files: ${defaultExtensionsToCheck.map((ext) => `${configFileName}${ext}`).join(', ')}`,
+    `Could not find config file. Checked for these files: ${defaultExtensionsToCheck.map((ext) => `${configFilePath}${ext}`).join(', ')}`,
   )
 }
