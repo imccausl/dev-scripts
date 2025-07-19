@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/imccausl/dev-scripts/compare/v1.2.0...v1.2.1) (2025-07-19)
+
+
+### Bug Fixes
+
+* script name should not be passed as an arg to scripts ([#12](https://github.com/imccausl/dev-scripts/issues/12)) ([61c13a0](https://github.com/imccausl/dev-scripts/commit/61c13a02dcc4f714c5a8903052e708cc1e3f3a7c))
+
 # [1.2.0](https://github.com/imccausl/dev-scripts/compare/v1.1.2...v1.2.0) (2025-07-19)
 
 
