@@ -8,13 +8,13 @@ import {
   getExecCommand,
   isYarnPnP,
   resolveConfigFile,
+  hasExistingConfig
 } from '../util/index.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
-function hasExistingConfig(): boolean {
-  const configFiles = [
+const configFiles = [
     '.prettierrc',
     '.prettierrc.json',
     '.prettierrc.js',
@@ -29,10 +29,7 @@ function hasExistingConfig(): boolean {
     'prettier.config.ts',
   ]
 
-  return configFiles.some((file) => fs.existsSync(file))
-}
-
-export async function runFormat(): Promise<void> {
+export async function runFormat() {
   const args = process.argv.slice(2)
 
   if (args.includes('--version') || args.includes('-v')) {
@@ -46,7 +43,7 @@ export async function runFormat(): Promise<void> {
   try {
     const prettierArgs = []
 
-    const hasConfig = args.includes('--config') || hasExistingConfig()
+    const hasConfig = args.includes('--config') || hasExistingConfig(configFiles)
 
     if (!hasConfig) {
       const configPath = resolveConfigFile(

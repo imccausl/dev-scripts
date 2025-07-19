@@ -7,13 +7,13 @@ import {
   detectPackageManager,
   getExecCommand,
   resolveConfigFile,
+  hasExistingConfig
 } from '../util/index.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
-function hasExistingConfig(): boolean {
-  const configFiles = [
+const configFiles = [
     'eslint.config.js',
     'eslint.config.mjs',
     'eslint.config.cjs',
@@ -21,9 +21,6 @@ function hasExistingConfig(): boolean {
     'eslint.config.mts',
     'eslint.config.cts',
   ]
-
-  return configFiles.some((file) => fs.existsSync(file))
-}
 
 export async function runLint(): Promise<void> {
   const args = process.argv.slice(2)
@@ -39,7 +36,7 @@ export async function runLint(): Promise<void> {
     const eslintArgs = []
 
     const hasConfig =
-      args.includes('--config') || args.includes('-c') || hasExistingConfig()
+      args.includes('--config') || args.includes('-c') || hasExistingConfig(configFiles)
 
     if (!hasConfig) {
       const configPath = resolveConfigFile('./config/eslint.config')
