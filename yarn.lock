@@ -601,7 +601,7 @@ __metadata:
   peerDependencies:
     eslint: ^9.0.0
   bin:
-    lint: ./lib/lint/index.js
+    dev: ./lib/index.js
   languageName: unknown
   linkType: soft
 

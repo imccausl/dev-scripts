@@ -10,11 +10,10 @@
     "publish": "semantic-release",
     "lint": "tsx src/lint/index.ts .",
     "lint:fix": "yarn lint --fix",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "dev": "tsx src/index.ts"
   },
-  "bin": {
-    "lint": "./lib/lint/index.js"
-  },
+  "bin": "./lib/index.js",
   "exports": {
     "./eslint-config": "./src/lint/eslint.ts",
     "./tsconfig.json": "./src/types/tsconfig.default.json"
