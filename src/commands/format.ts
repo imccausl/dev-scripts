@@ -1,6 +1,11 @@
 import { runFormat } from '../format/index.js'
 
-runFormat().catch((error) => {
-  console.error('Unexpected error:', error)
-  process.exit(2)
-})
+export default {
+  description: 'Run code formatting with Prettier',
+  action: () => {
+    runFormat().catch((error) => {
+      console.error('Failed to start Prettier:', error)
+      process.exit(2)
+    })
+  },
+}

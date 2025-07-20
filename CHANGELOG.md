@@ -1,9 +1,8 @@
 ## [1.2.2](https://github.com/imccausl/dev-scripts/compare/v1.2.1...v1.2.2) (2025-07-19)
 
-
 ### Bug Fixes
 
-* export paths incorrect for default config ([#13](https://github.com/imccausl/dev-scripts/issues/13)) ([d496022](https://github.com/imccausl/dev-scripts/commit/d496022318ebc8c0a51c04eb699be2fccbd9cf2e))
+- export paths incorrect for default config ([#13](https://github.com/imccausl/dev-scripts/issues/13)) ([d496022](https://github.com/imccausl/dev-scripts/commit/d496022318ebc8c0a51c04eb699be2fccbd9cf2e))
 
 ## [1.2.1](https://github.com/imccausl/dev-scripts/compare/v1.2.0...v1.2.1) (2025-07-19)
 

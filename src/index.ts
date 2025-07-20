@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from 'node:fs'
+import { existsSync, promises, readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -26,20 +26,51 @@ function parseCommandLineArgs() {
   }
 }
 
-function showHelp() {
+async function getAvailableScripts() {
+  const commandsDir = join(__dirname, 'commands')
+  const commands: string[] = []
+  const commandFiles = existsSync(commandsDir)
+    ? await promises.readdir(commandsDir)
+    : []
+
+  // First pass: collect commands and find the longest name
+  const commandData: Array<{ name: string; description: string }> = []
+  let maxNameLength = 0
+
+  for (const file of commandFiles) {
+    if (file.endsWith('.ts') || file.endsWith('.js')) {
+      const command = await import(join(commandsDir, file))
+      const description = command.default?.description
+      if (description) {
+        const name = file.replace(/\.(ts|js)$/, '')
+        commandData.push({ name, description })
+        maxNameLength = Math.max(maxNameLength, name.length)
+      }
+    }
+  }
+
+  // Second pass: format with consistent spacing
+  for (const { name, description } of commandData) {
+    commands.push(`${name.padEnd(maxNameLength + 2)}${description}`)
+  }
+
+  return commands.join('\n  ')
+}
+
+async function showHelp() {
   console.log(`
 Usage: @imccausl/dev <script> [options]
 
 Available scripts:
-  lint       Run ESLint on your project
+  ${await getAvailableScripts()}
 
 Options:
   -h, --help     Show help
   -v, --version  Show version
 
 Examples:
-  @imccausl/dev lint src/
-  @imccausl/dev lint --fix src/
+  dev lint src/
+  dev lint --fix src/
   `)
 }
 
@@ -77,7 +108,7 @@ async function main() {
   const { options, script, scriptArgs } = parseCommandLineArgs()
 
   if (options.help) {
-    showHelp()
+    await showHelp()
     process.exit(0)
   }
 
@@ -88,23 +119,21 @@ async function main() {
 
   if (!script) {
     console.error('No script specified.')
-    showHelp()
+    await showHelp()
     process.exit(1)
   }
 
   try {
     const scriptPath = await resolveScript(script)
-
-    if (scriptPath.endsWith('.ts')) {
-      const { spawn } = await import('node:child_process')
-      const child = spawn('yarn', ['tsx', scriptPath, ...scriptArgs], {
-        stdio: 'inherit',
-      })
-
-      child.on('exit', (code) => process.exit(code || 0))
+    process.argv = [scriptPath, ...scriptArgs]
+    const module = await import(scriptPath)
+    if (module.default?.action && typeof module.default.action === 'function') {
+      await module.default.action()
     } else {
-      process.argv = ['node', scriptPath, ...scriptArgs]
-      await import(scriptPath)
+      console.error(
+        `Script "${script}" does not export a default object with an action function.`,
+      )
+      process.exit(1)
     }
   } catch {
     console.error(`Script "${script}" not found.`)

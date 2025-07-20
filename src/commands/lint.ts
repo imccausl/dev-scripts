@@ -1,6 +1,11 @@
 import { runLint } from '../lint/index.js'
 
-runLint().catch((error) => {
-  console.error('Unexpected error:', error)
-  process.exit(2)
-})
+export default {
+  description: 'Run code linting with ESLint',
+  action: () => {
+    runLint().catch((error) => {
+      console.error('Failed to start ESLint:', error)
+      process.exit(2)
+    })
+  },
+}
