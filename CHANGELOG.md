@@ -1,3 +1,10 @@
+## [1.2.4](https://github.com/imccausl/dev-scripts/compare/v1.2.3...v1.2.4) (2025-07-20)
+
+
+### Bug Fixes
+
+* filter d.ts ([#16](https://github.com/imccausl/dev-scripts/issues/16)) ([175dc93](https://github.com/imccausl/dev-scripts/commit/175dc93de2bb6222b371666f85a439b05548e603))
+
 ## [1.2.3](https://github.com/imccausl/dev-scripts/compare/v1.2.2...v1.2.3) (2025-07-20)
 
 
