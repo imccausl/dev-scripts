@@ -7,9 +7,5 @@ const files = {
 }
 
 export function createConfig(config) {
-  return [
-    { ...ignores },
-    ...config,
-    { ...files }
-  ]
+  return [{ ...ignores }, ...config, { ...files }]
 }

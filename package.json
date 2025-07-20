@@ -8,15 +8,27 @@
     "copy-assets": "tsx infrastructure/copy-assets.ts",
     "build": "yarn clean && yarn compile && yarn copy-assets",
     "publish": "semantic-release",
-    "lint": "tsx src/lint/index.ts .",
+    "lint": "yarn dev lint",
     "lint:fix": "yarn lint --fix",
+    "format": "yarn dev format",
     "typecheck": "tsc --noEmit",
     "dev": "tsx src/index.ts"
   },
   "bin": "./lib/index.js",
   "exports": {
-    "./eslint-config": "./src/lint/config/index.ts",
-    "./eslint-config/base": "./src/lint/config/base.ts",
+    "./eslint-config": "./src/lint/config/index.js",
+    "./eslint-config/base": "./src/lint/config/base.js",
+    "./prettier-config": {
+      "import": {
+        "default": "./src/format/config/config.default.js"
+      },
+      "require": {
+        "default": "./src/format/config/config.default.cjs"
+      },
+      "default": {
+        "default": "./lib/format/config/config.default.cjs"
+      }
+    },
     "./tsconfig.json": "./src/types/tsconfig.default.json"
   },
   "publishConfig": {
@@ -30,6 +42,20 @@
       "./eslint-config/base": {
         "default": "./lib/lint/config/base.js",
         "types": "./lib/lint/config/base.d.ts"
+      },
+      "./prettier-config": {
+        "import": {
+          "types": "./lib/format/config/config.default.d.ts",
+          "default": "./lib/format/config/config.default.js"
+        },
+        "require": {
+          "types": "./lib/format/config/config.default.d.cts",
+          "default": "./lib/format/config/config.default.cjs"
+        },
+        "default": {
+          "types": "./lib/format/config/config.default.d.cts",
+          "default": "./lib/format/config/config.default.cjs"
+        }
       },
       "./tsconfig.json": "./lib/types/tsconfig.default.json"
     }
@@ -52,10 +78,12 @@
     "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-import-x": "^4.16.1",
     "jiti": "^2.4.2",
+    "prettier": "^3.6.2",
     "typescript-eslint": "^8.36.0"
   },
   "peerDependencies": {
-    "eslint": "^9.0.0"
+    "eslint": "^9.0.0",
+    "prettier": "^3.6.2"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
