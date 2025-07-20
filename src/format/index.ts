@@ -22,7 +22,7 @@ const configFiles = [
 
 export function runFormat() {
   return run('prettier', (args) => {
-    const prettierArgs = []
+    const prettierArgs: string[] = []
 
     const hasConfig =
       args.includes('--config') || hasExistingConfig(configFiles)

@@ -11,7 +11,7 @@ const configFiles = [
 
 export function runLint() {
   return run('eslint', (args) => {
-    const scriptArgs = []
+    const eslintArgs: string[] = []
     const hasConfig =
       args.includes('--config') ||
       args.includes('-c') ||
@@ -19,13 +19,13 @@ export function runLint() {
 
     if (!hasConfig) {
       const configPath = resolveConfigFile('./config/eslint.config')
-      scriptArgs.push('--config', configPath)
+      eslintArgs.push('--config', configPath)
     }
 
     if (!args.some((arg) => !arg.startsWith('-'))) {
-      scriptArgs.push('.')
+      eslintArgs.push('.')
     }
 
-    return scriptArgs
+    return eslintArgs
   })
 }
