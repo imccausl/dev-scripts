@@ -33,12 +33,11 @@ async function getAvailableScripts() {
     ? await promises.readdir(commandsDir)
     : []
 
-  // First pass: collect commands and find the longest name
   const commandData: Array<{ name: string; description: string }> = []
   let maxNameLength = 0
 
   for (const file of commandFiles) {
-    if (file.endsWith('.ts') || file.endsWith('.js')) {
+    if ((file.endsWith('.ts') || file.endsWith('.js')) && !file.endsWith('.d.ts')) {
       const command = await import(join(commandsDir, file))
       const description = command.default?.description
       if (description) {
@@ -49,7 +48,6 @@ async function getAvailableScripts() {
     }
   }
 
-  // Second pass: format with consistent spacing
   for (const { name, description } of commandData) {
     commands.push(`${name.padEnd(maxNameLength + 2)}${description}`)
   }
