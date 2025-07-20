@@ -1,4 +1,4 @@
-import { execSync } from 'node:child_process'
+import { execSync, spawn } from 'node:child_process'
 import fs from 'node:fs'
 import path, { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -75,4 +75,43 @@ export function resolveConfigFile(configFilePath: string, preferCJS = false) {
 
 export function hasExistingConfig(configFiles: string[]): boolean {
   return configFiles.some((file) => fs.existsSync(file))
+}
+
+export async function run(
+  tool: string,
+  additionalArgs: (args: string[]) => string[] = () => [],
+) {
+  const args = process.argv.slice(2)
+  if (args.includes('--version') || args.includes('-v')) {
+    const pkg = JSON.parse(
+      fs.readFileSync(path.join(__dirname, '../../package.json'), 'utf8'),
+    )
+    console.log(pkg.version || 'unknown')
+    return
+  }
+
+  try {
+    const scriptArgs = [...additionalArgs(args), ...args]
+
+    const { manager, hasExec } = detectPackageManager()
+    const [command, execArgs] = getExecCommand(manager, hasExec)
+
+    const child = spawn(command, [...execArgs, tool, ...scriptArgs], {
+      stdio: 'inherit',
+      cwd: process.cwd(),
+      env: process.env,
+    })
+
+    child.on('exit', (code) => {
+      process.exit(code || 0)
+    })
+
+    child.on('error', (error) => {
+      console.error(`Failed to start ${tool}:`, error)
+      process.exit(2)
+    })
+  } catch (error) {
+    console.error(`${tool} error:`, error)
+    process.exit(2)
+  }
 }
