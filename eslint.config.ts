@@ -1,3 +1,3 @@
-import defaultConfig from './src/lint/config/base.js'
+import defaultConfig from './src/lint/config/base.ts'
 
 export default defaultConfig

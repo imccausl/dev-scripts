@@ -26,7 +26,7 @@ function parseCommandLineArgs() {
   }
 }
 
-async function getAvailableScripts() {
+async function showAvailableScripts() {
   const commandsDir = join(__dirname, 'commands')
   const commands: string[] = []
   const commandFiles = existsSync(commandsDir)
@@ -37,7 +37,10 @@ async function getAvailableScripts() {
   let maxNameLength = 0
 
   for (const file of commandFiles) {
-    if ((file.endsWith('.ts') || file.endsWith('.js')) && !file.endsWith('.d.ts')) {
+    if (
+      (file.endsWith('.ts') || file.endsWith('.js')) &&
+      !file.endsWith('.d.ts')
+    ) {
       const command = await import(join(commandsDir, file))
       const description = command.default?.description
       if (description) {
@@ -52,15 +55,14 @@ async function getAvailableScripts() {
     commands.push(`${name.padEnd(maxNameLength + 2)}${description}`)
   }
 
-  return commands.join('\n  ')
+  return `Available scripts:\n  ${commands.join('\n  ')}`
 }
 
 async function showHelp() {
   console.log(`
-Usage: @imccausl/dev <script> [options]
+Usage: dev <script> [options]
 
-Available scripts:
-  ${await getAvailableScripts()}
+${await showAvailableScripts()}
 
 Options:
   -h, --help     Show help
@@ -135,7 +137,7 @@ async function main() {
     }
   } catch {
     console.error(`Script "${script}" not found.`)
-    showHelp()
+    console.log(`\n${await showAvailableScripts()}`)
     process.exit(1)
   }
 }

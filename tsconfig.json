@@ -1,9 +1,13 @@
 {
   "extends": ["./src/types/tsconfig.default.json"],
+  "compilerOptions": {
+    "allowImportingTsExtensions": true
+  },
   "include": [
     "src",
     "infrastructure",
     "eslint.config.ts",
-    "prettier.config.cjs"
+    "prettier.config.cjs",
+    "tsdown.config.ts"
   ]
 }
