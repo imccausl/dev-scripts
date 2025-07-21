@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/imccausl/dev-scripts/compare/v1.2.4...v1.3.0) (2025-07-21)
+
+
+### Features
+
+* add build script for node-based projects ([#17](https://github.com/imccausl/dev-scripts/issues/17)) ([2e40952](https://github.com/imccausl/dev-scripts/commit/2e40952e7f468c8ecd4e09591d30ebbffd499573))
+
 ## [1.2.4](https://github.com/imccausl/dev-scripts/compare/v1.2.3...v1.2.4) (2025-07-20)
 
 ### Bug Fixes
