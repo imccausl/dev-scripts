@@ -18,9 +18,8 @@
   "exports": {
     "./eslint-config": "./src/lint/config/index.js",
     "./eslint-config/base": "./src/lint/config/base.js",
-    "./tsup": {
-      "types": "./src/build/config/tsup.d.ts",
-      "default": "./src/build/config/tsup.js"
+    "./tsdown": {
+      "default": "./src/build/config/tsdown.ts"
     },
     "./prettier-config": {
       "import": {

@@ -1,10 +1,44 @@
-import { execSync, spawn } from 'node:child_process'
+import { execSync, spawn, type SpawnOptions } from 'node:child_process'
 import fs from 'node:fs'
+import { createRequire } from 'node:module'
 import path, { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
+
+const require = createRequire(import.meta.url)
+
+function getDevScriptsToolPath(tool: string): { command: string; args: string[] } | null {
+  if (isYarnPnP()) {
+    try {
+      // In Yarn PnP, resolve the tool package directly
+      const toolPackagePath = require.resolve(`${tool}/package.json`)
+      const toolDir = path.dirname(toolPackagePath)
+
+      // Look for the binary in the package
+      const pkg = JSON.parse(fs.readFileSync(toolPackagePath, 'utf8'))
+      const binPath = pkg.bin?.[tool] || pkg.bin
+
+      if (binPath) {
+        const fullBinPath = path.join(toolDir, binPath)
+
+        return { command: 'node', args: [fullBinPath] }
+      }
+    } catch {
+      // ignore: tool not found in PnP
+    }
+    return null
+  } else {
+    const devScriptsRoot = path.resolve(__dirname, '../..')
+    const toolBinPath = path.join(devScriptsRoot, 'node_modules', '.bin', tool)
+
+    if (fs.existsSync(toolBinPath)) {
+      return { command: toolBinPath, args: [] }
+    }
+    return null
+  }
+}
 
 export function getExecCommand(
   packageManager: string,
@@ -17,6 +51,25 @@ export function getExecCommand(
     return ['pnpm', ['exec']]
   }
   return ['npx', []]
+}
+
+function isToolAvailable(tool: string, cwd?: string): boolean {
+  try {
+    const { manager, hasExec } = detectPackageManager()
+    const [command, execArgs] = getExecCommand(manager, hasExec)
+
+    const options = cwd
+      ? { stdio: 'ignore' as const, cwd, encoding: 'utf8' as const }
+      : { stdio: 'ignore' as const, encoding: 'utf8' as const }
+
+    execSync(
+      `${command} ${[...execArgs, tool, '--version'].join(' ')}`,
+      options,
+    )
+    return true
+  } catch {
+    return false
+  }
 }
 
 export function detectPackageManager(): { manager: string; hasExec: boolean } {
@@ -98,9 +151,26 @@ export async function run(
 
   try {
     const scriptArgs = [...additionalArgs(args), ...args]
-
     const { manager, hasExec } = detectPackageManager()
     const [command, execArgs] = getExecCommand(manager, hasExec)
+
+    if (!isToolAvailable(tool)) {
+      const toolInfo = getDevScriptsToolPath(tool)
+      if (toolInfo) {
+        console.log(`${tool} not found in host project, using from dev-scripts`)
+        const child = spawn(toolInfo.command, [...toolInfo.args, ...scriptArgs], {
+          stdio: 'inherit',
+        })
+
+        child.on('exit', (code) => process.exit(code || 0))
+        child.on('error', (error) => {
+          console.error(`Failed to start ${tool}:`, error)
+          process.exit(2)
+        })
+        return
+      }
+      throw new Error(`${tool} not found in host project or dev-scripts`)
+    }
 
     const child = spawn(command, [...execArgs, tool, ...scriptArgs], {
       stdio: 'inherit',
