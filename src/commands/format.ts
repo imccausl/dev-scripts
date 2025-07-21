@@ -1,11 +1,8 @@
-import { runFormat } from '../format/index.js'
+import { runFormat } from '../format/index.ts'
+import { registerCommand } from '../util/index.ts'
 
-export default {
-  description: 'Run code formatting with Prettier',
-  action: () => {
-    runFormat().catch((error) => {
-      console.error('Failed to start Prettier:', error)
-      process.exit(2)
-    })
-  },
-}
+export default registerCommand({
+  name: 'format',
+  description: 'Code formatting with Prettier',
+  action: runFormat,
+})

@@ -3,6 +3,7 @@ import {
   isYarnPnP,
   resolveConfigFile,
   run,
+  hasFile,
 } from '../util/index.js'
 
 const configFiles = [
@@ -35,6 +36,12 @@ export function runFormat() {
       prettierArgs.push('--config', configPath)
     }
 
+    const useBuiltinIgnore =
+      !args.includes('--ignore-path') && !hasFile('.prettierignore')
+
+    if (useBuiltinIgnore) {
+      prettierArgs.push('--ignore-path', './config/prettierignore')
+    }
     if (!args.some((arg) => !arg.startsWith('-'))) {
       prettierArgs.push('.')
     }

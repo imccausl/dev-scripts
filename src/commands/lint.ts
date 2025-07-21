@@ -1,11 +1,8 @@
-import { runLint } from '../lint/index.js'
+import { runLint } from '../lint/index.ts'
+import { registerCommand } from '../util/index.ts'
 
-export default {
-  description: 'Run code linting with ESLint',
-  action: () => {
-    runLint().catch((error) => {
-      console.error('Failed to start ESLint:', error)
-      process.exit(2)
-    })
-  },
-}
+export default registerCommand({
+  name: 'lint',
+  description: 'Code linting with ESLint',
+  action: runLint,
+})

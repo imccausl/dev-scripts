@@ -77,6 +77,10 @@ export function hasExistingConfig(configFiles: string[]): boolean {
   return configFiles.some((file) => fs.existsSync(file))
 }
 
+export function hasFile(filePath: string): boolean {
+  return fs.existsSync(filePath)
+}
+
 export async function run(
   tool: string,
   additionalArgs: (args: string[]) => string[] = () => [],
@@ -111,5 +115,24 @@ export async function run(
   } catch (error) {
     console.error(`${tool} error:`, error)
     process.exit(2)
+  }
+}
+interface TaskDefinition {
+  name: string
+  description: string
+  action: () => Promise<void>
+}
+
+export function registerCommand({ name, description, action }: TaskDefinition) {
+  return {
+    description,
+    action: async () => {
+      try {
+        await action()
+      } catch (error) {
+        console.error(`Failed to execute task: ${name}`, error)
+        process.exit(2)
+      }
+    },
   }
 }
