@@ -12,11 +12,9 @@ const require = createRequire(import.meta.url)
 function getDevScriptsToolPath(tool: string): { command: string; args: string[] } | null {
   if (isYarnPnP()) {
     try {
-      // In Yarn PnP, resolve the tool package directly
       const toolPackagePath = require.resolve(`${tool}/package.json`)
       const toolDir = path.dirname(toolPackagePath)
 
-      // Look for the binary in the package
       const pkg = JSON.parse(fs.readFileSync(toolPackagePath, 'utf8'))
       const binPath = pkg.bin?.[tool] || pkg.bin
 

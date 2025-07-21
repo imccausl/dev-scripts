@@ -29,7 +29,7 @@
         "default": "./src/format/config/prettier.config.cjs"
       },
       "default": {
-        "default": "./lib/format/config/prettier.config.cjs"
+        "default": "./src/format/config/prettier.config.cjs"
       }
     },
     "./tsconfig.json": "./src/types/tsconfig.default.json"
@@ -51,18 +51,9 @@
         "default": "./lib/build/config/tsdown.js"
       },
       "./prettier-config": {
-        "import": {
-          "types": "./lib/format/config/prettier.config.d.ts",
-          "default": "./lib/format/config/prettier.config.js"
-        },
-        "require": {
-          "types": "./lib/format/config/prettier.config.d.cts",
-          "default": "./lib/format/config/prettier.config.cjs"
-        },
-        "default": {
-          "types": "./lib/format/config/prettier.config.d.cts",
-          "default": "./lib/format/config/prettier.config.cjs"
-        }
+        "import": "./lib/format/config/prettier.config.js",
+        "require": "./lib/format/config/prettier.config.cjs",
+        "default": "./lib/format/config/prettier.config.cjs"
       },
       "./tsconfig.json": "./lib/types/tsconfig.default.json"
     }
