@@ -20,7 +20,7 @@ export function getExecCommand(
 }
 
 export function detectPackageManager(): { manager: string; hasExec: boolean } {
-  if (fs.existsSync('yarn.lock')) {
+  if (hasFile('yarn.lock')) {
     try {
       const yarnVersion = execSync('yarn --version', {
         encoding: 'utf8',
@@ -32,17 +32,16 @@ export function detectPackageManager(): { manager: string; hasExec: boolean } {
     }
   }
 
-  if (fs.existsSync('pnpm-lock.yaml')) return { manager: 'pnpm', hasExec: true }
-  if (fs.existsSync('package-lock.json'))
-    return { manager: 'npm', hasExec: false }
+  if (hasFile('pnpm-lock.yaml')) return { manager: 'pnpm', hasExec: true }
+  if (hasFile('package-lock.json')) return { manager: 'npm', hasExec: false }
   return { manager: 'npx', hasExec: false }
 }
 
 export function isYarnPnP(): boolean {
   return (
     process.versions.pnp !== undefined ||
-    fs.existsSync('.pnp.cjs') ||
-    fs.existsSync('.pnp.js')
+    hasFile('.pnp.cjs') ||
+    hasFile('.pnp.js')
   )
 }
 
@@ -54,8 +53,9 @@ export function resolveConfigFile(configFilePath: string, preferCJS = false) {
 
   const possiblePaths = extensionsToCheck.map((ext) => {
     return () => {
-      const filePath = path.join(__dirname, `${configFilePath}${ext}`)
-      if (fs.existsSync(filePath)) return filePath
+      const filePath = `${configFilePath}${ext}`
+      console.log(`Checking for config file: ${filePath}`)
+      if (hasFile(filePath)) return filePath
       throw new Error(`File not found: ${filePath}`)
     }
   })
@@ -74,11 +74,15 @@ export function resolveConfigFile(configFilePath: string, preferCJS = false) {
 }
 
 export function hasExistingConfig(configFiles: string[]): boolean {
-  return configFiles.some((file) => fs.existsSync(file))
+  return configFiles.some((file) => hasFile(file))
 }
 
 export function hasFile(filePath: string): boolean {
   return fs.existsSync(filePath)
+}
+
+export function here(p: string, dirname = __dirname) {
+  return path.join(dirname, p)
 }
 
 export async function run(
@@ -87,9 +91,7 @@ export async function run(
 ) {
   const args = process.argv.slice(2)
   if (args.includes('--version') || args.includes('-v')) {
-    const pkg = JSON.parse(
-      fs.readFileSync(path.join(__dirname, '../../package.json'), 'utf8'),
-    )
+    const pkg = JSON.parse(fs.readFileSync(here('../../package.json'), 'utf8'))
     console.log(pkg.version || 'unknown')
     return
   }

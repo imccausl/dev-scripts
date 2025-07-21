@@ -1,4 +1,19 @@
-import { hasExistingConfig, resolveConfigFile, run } from '../util/index.js'
+import { dirname } from 'node:path'
+import { fileURLToPath } from 'node:url'
+
+import {
+  hasExistingConfig,
+  here,
+  resolveConfigFile,
+  run,
+} from '../util/index.js'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+
+function hereRelative(p: string) {
+  return here(p, __dirname).replace(process.cwd(), '.')
+}
 
 const configFiles = [
   'eslint.config.js',
@@ -18,7 +33,7 @@ export function runLint() {
       hasExistingConfig(configFiles)
 
     if (!hasConfig) {
-      const configPath = resolveConfigFile('./config/eslint.config')
+      const configPath = resolveConfigFile(hereRelative('./config/index'))
       eslintArgs.push('--config', configPath)
     }
 
