@@ -1,4 +1,4 @@
-import { execSync, spawn, type SpawnOptions } from 'node:child_process'
+import { execSync, spawn } from 'node:child_process'
 import fs from 'node:fs'
 import { createRequire } from 'node:module'
 import path, { dirname } from 'node:path'
@@ -9,7 +9,9 @@ const __dirname = dirname(__filename)
 
 const require = createRequire(import.meta.url)
 
-function getDevScriptsToolPath(tool: string): { command: string; args: string[] } | null {
+function getDevScriptsToolPath(
+  tool: string,
+): { command: string; args: string[] } | null {
   if (isYarnPnP()) {
     try {
       const toolPackagePath = require.resolve(`${tool}/package.json`)
@@ -156,9 +158,13 @@ export async function run(
       const toolInfo = getDevScriptsToolPath(tool)
       if (toolInfo) {
         console.log(`${tool} not found in host project, using from dev-scripts`)
-        const child = spawn(toolInfo.command, [...toolInfo.args, ...scriptArgs], {
-          stdio: 'inherit',
-        })
+        const child = spawn(
+          toolInfo.command,
+          [...toolInfo.args, ...scriptArgs],
+          {
+            stdio: 'inherit',
+          },
+        )
 
         child.on('exit', (code) => process.exit(code || 0))
         child.on('error', (error) => {

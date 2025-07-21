@@ -69,3 +69,6 @@ Thumbs.db
 
 # Git
 .git/
+
+# Other
+CHANGELOG.md

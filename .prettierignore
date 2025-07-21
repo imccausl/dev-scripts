@@ -53,6 +53,7 @@ jspm_packages/
 
 # IDE files
 .vscode/
+.vim/
 .idea/
 *.swp
 *.swo
@@ -69,3 +70,6 @@ Thumbs.db
 
 # Git
 .git/
+
+# Other
+CHANGELOG.md
