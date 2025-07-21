@@ -37,7 +37,10 @@ async function getAvailableScripts() {
   let maxNameLength = 0
 
   for (const file of commandFiles) {
-    if ((file.endsWith('.ts') || file.endsWith('.js')) && !file.endsWith('.d.ts')) {
+    if (
+      (file.endsWith('.ts') || file.endsWith('.js')) &&
+      !file.endsWith('.d.ts')
+    ) {
       const command = await import(join(commandsDir, file))
       const description = command.default?.description
       if (description) {

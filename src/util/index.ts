@@ -98,8 +98,6 @@ export async function run(
 
     const child = spawn(command, [...execArgs, tool, ...scriptArgs], {
       stdio: 'inherit',
-      cwd: process.cwd(),
-      env: process.env,
     })
 
     child.on('exit', (code) => {

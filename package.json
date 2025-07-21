@@ -18,6 +18,10 @@
   "exports": {
     "./eslint-config": "./src/lint/config/index.js",
     "./eslint-config/base": "./src/lint/config/base.js",
+    "./tsup": {
+      "types": "./src/build/config/tsup.d.ts",
+      "default": "./src/build/config/tsup.js"
+    },
     "./prettier-config": {
       "import": {
         "default": "./src/format/config/config.default.js"
@@ -36,12 +40,16 @@
     "tag": "latest",
     "exports": {
       "./eslint-config": {
-        "default": "./lib/lint/config/index.js",
-        "types": "./lib/lint/config/index.d.ts"
+        "types": "./lib/lint/config/index.d.ts",
+        "default": "./lib/lint/config/index.js"
       },
       "./eslint-config/base": {
-        "default": "./lib/lint/config/base.js",
-        "types": "./lib/lint/config/base.d.ts"
+        "types": "./lib/lint/config/base.d.ts",
+        "default": "./lib/lint/config/base.js"
+      },
+      "./tsdown": {
+        "types": "./lib/build/config/tsdown.d.ts",
+        "default": "./lib/build/config/tsdown.js"
       },
       "./prettier-config": {
         "import": {
@@ -79,6 +87,7 @@
     "eslint-plugin-import-x": "^4.16.1",
     "jiti": "^2.4.2",
     "prettier": "^3.6.2",
+    "tsdown": "^0.12.9",
     "typescript-eslint": "^8.36.0"
   },
   "peerDependencies": {
