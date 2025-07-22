@@ -1,3 +1,15 @@
+# [1.4.0](https://github.com/imccausl/dev-scripts/compare/v1.3.0...v1.4.0) (2025-07-22)
+
+
+### Bug Fixes
+
+* bundle mode should be bundle not build ([#20](https://github.com/imccausl/dev-scripts/issues/20)) ([a13fe9c](https://github.com/imccausl/dev-scripts/commit/a13fe9c51a23b7894514d17d9ae2cce7f2f396a6))
+
+
+### Features
+
+* add bundle and serve scripts using vite ([#19](https://github.com/imccausl/dev-scripts/issues/19)) ([3ff1c7d](https://github.com/imccausl/dev-scripts/commit/3ff1c7de33839bc97f73a07cab9c1b87cd608c3d))
+
 # [1.3.0](https://github.com/imccausl/dev-scripts/compare/v1.2.4...v1.3.0) (2025-07-21)
 
 
