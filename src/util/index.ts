@@ -138,9 +138,7 @@ export function here(p: string, dirname = __dirname) {
   return path.join(dirname, p)
 }
 
-export interface AdditionalArgs {
-  (args: string[]): string[]
-}
+export type AdditionalArgs = (args: string[]) => string[]
 
 export async function run(
   tool: string,

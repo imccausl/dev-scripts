@@ -21,6 +21,9 @@
     "./tsdown": {
       "default": "./src/build/config/tsdown.ts"
     },
+    "./vite": {
+      "default": "./src/build/config/vite/index.ts"
+    },
     "./prettier-config": {
       "import": {
         "default": "./src/format/config/prettier.config.js"
@@ -50,6 +53,10 @@
         "types": "./lib/build/config/tsdown.d.ts",
         "default": "./lib/build/config/tsdown.js"
       },
+      "./vite": {
+        "types": "./lib/build/config/vite/index.d.ts",
+        "default": "./lib/build/config/vite/index.js"
+      },
       "./prettier-config": {
         "import": "./lib/format/config/prettier.config.js",
         "require": "./lib/format/config/prettier.config.cjs",
@@ -71,6 +78,7 @@
     "@typescript-eslint/eslint-plugin": "^8.36.0",
     "@typescript-eslint/parser": "^8.36.0",
     "@typescript-eslint/types": "^8.37.0",
+    "@vitejs/plugin-react": "^4.7.0",
     "eslint": "^9.30.1",
     "eslint-config-prettier": "^10.1.5",
     "eslint-import-resolver-typescript": "^3.6.1",

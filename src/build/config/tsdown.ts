@@ -1,6 +1,6 @@
 import { type UserConfig, defineConfig } from 'tsdown/config'
 
-export const tsUpConfig: UserConfig = {
+const defaultConfig: UserConfig = {
   entry: ['src/index.ts'],
   outDir: 'lib',
   format: ['esm'],
@@ -10,13 +10,15 @@ export const tsUpConfig: UserConfig = {
 /**
  * Merges the provided configuration with the default tsup configuration.
  */
-export function defineMergedConfig(config: UserConfig = {}) {
+function defineMergedConfig(config: UserConfig = {}) {
   return defineConfig({
-    ...tsUpConfig,
-    ...config
+    ...defaultConfig,
+    ...config,
   })
 }
 
 export default defineConfig({
-  ...tsUpConfig
+  ...defaultConfig,
 })
+
+export { defineConfig, defineMergedConfig, defaultConfig }
