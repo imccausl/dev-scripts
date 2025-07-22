@@ -1,3 +1,5 @@
+import { runVite } from './util.ts'
+
 export function bundle() {
-  console.log('Bundling not implemented yet.');
+  return runVite('bundle')
 }
