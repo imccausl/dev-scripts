@@ -9,6 +9,7 @@ const __dirname = dirname(__filename)
 export function hereRelative(p: string) {
   return here(p, __dirname).replace(process.cwd(), '.')
 }
+
 const configFiles = [
   'tsdown.config.js',
   'tsdown.config.mjs',

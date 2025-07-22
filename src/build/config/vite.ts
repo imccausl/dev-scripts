@@ -1,0 +1,1 @@
+import { type UserConfig, defineConfig } from 'vite'

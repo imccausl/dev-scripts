@@ -138,9 +138,13 @@ export function here(p: string, dirname = __dirname) {
   return path.join(dirname, p)
 }
 
+export interface AdditionalArgs {
+  (args: string[]): string[]
+}
+
 export async function run(
   tool: string,
-  additionalArgs: (args: string[]) => string[] = () => [],
+  additionalArgs: AdditionalArgs = () => [],
 ) {
   const args = process.argv.slice(2)
   if (args.includes('--version') || args.includes('-v')) {
