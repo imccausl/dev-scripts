@@ -25,9 +25,9 @@ const configFiles = [
   'vite.config.cts',
 ]
 
-export type BundleMode = 'build' | 'serve'
+export type BundleMode = 'bundle' | 'serve'
 
-const bundleArgs = (mode: BundleMode = 'build'): AdditionalArgs => {
+const bundleArgs = (mode: BundleMode = 'bundle'): AdditionalArgs => {
   return (args) => {
     const viteArgs: string[] = [mode]
 
