@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/imccausl/dev-scripts/compare/v1.4.0...v1.4.1) (2025-07-25)
+
+
+### Bug Fixes
+
+* add eslint config optional deps ([#21](https://github.com/imccausl/dev-scripts/issues/21)) ([5c1c169](https://github.com/imccausl/dev-scripts/commit/5c1c16981bc5e24cd206d3e8e591c95a07c6390b))
+
 # [1.4.0](https://github.com/imccausl/dev-scripts/compare/v1.3.0...v1.4.0) (2025-07-22)
 
 
