@@ -106,6 +106,7 @@
     "@types/eslint-plugin-jsx-a11y": "^6",
     "@types/node": "^22.0.0",
     "@yarnpkg/sdks": "^3.2.3",
+    "conventional-changelog-conventionalcommits": "^9.1.0",
     "release-it": "^19.0.5",
     "tsx": "^4.20.3",
     "typescript": "^5.8.3"
