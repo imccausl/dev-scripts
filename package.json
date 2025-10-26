@@ -110,5 +110,8 @@
     "tsx": "^4.20.3",
     "typescript": "^5.8.3"
   },
+  "resolutions": {
+    "conventional-changelog-conventionalcommits": "8.0.0"
+  },
   "packageManager": "yarn@4.10.3"
 }
