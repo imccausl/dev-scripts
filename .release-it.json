@@ -3,6 +3,9 @@
   "git": {
     "commitMessage": "chore: release v${version}"
   },
+  "npm": {
+    "skipChecks": true
+  },
   "github": {
     "release": true
   },
