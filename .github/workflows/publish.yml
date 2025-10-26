@@ -34,6 +34,6 @@ jobs:
         run: yarn build
 
       - name: Publish
-        run: yarn publish
+        run: yarn publish --verbose
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
