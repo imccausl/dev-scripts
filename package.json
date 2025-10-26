@@ -14,7 +14,9 @@
     "typecheck": "tsc --noEmit",
     "dev": "tsx src/index.ts"
   },
-  "bin": "./lib/index.js",
+  "bin": {
+    "dev": "./lib/index.js"
+  },
   "exports": {
     "./eslint-config": "./src/lint/config/index.js",
     "./eslint-config/base": "./src/lint/config/base.js",
@@ -40,6 +42,7 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "tag": "latest",
+    "access": "public",
     "exports": {
       "./eslint-config": {
         "types": "./lib/lint/config/index.d.ts",
@@ -67,7 +70,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/imccausl/dev-scripts.git"
+    "url": "git+https://github.com/imccausl/dev-scripts.git"
   },
   "files": [
     "lib"
