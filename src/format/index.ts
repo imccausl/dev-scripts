@@ -14,8 +14,10 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
 function hereRelative(p: string) {
-  console.log(`Resolving path relative to: ${__dirname}`)
-  console.log(`full path: ${here(p, __dirname).replace(process.cwd(), '.')}`)
+  if (process.env.DEBUG === '1'){
+    console.log(`Resolving path relative to: ${__dirname}`)
+    console.log(`full path: ${here(p, __dirname).replace(process.cwd(), '.')}`)
+  }
   return here(p, __dirname).replace(process.cwd(), '.')
 }
 

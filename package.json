@@ -7,9 +7,9 @@
     "compile": "tsc -b ./tsconfig.build.json",
     "copy-assets": "tsx infrastructure/copy-assets.ts",
     "build": "yarn dev build",
-    "publish": "semantic-release",
     "lint": "yarn dev lint",
     "lint:fix": "yarn lint --fix",
+    "publish": "release",
     "format": "yarn dev format",
     "typecheck": "tsc --noEmit",
     "dev": "tsx src/index.ts"
@@ -102,15 +102,13 @@
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
-    "@semantic-release/changelog": "^6.0.3",
-    "@semantic-release/git": "^10.0.1",
+    "@release-it/conventional-changelog": "^10.0.1",
     "@types/eslint-plugin-jsx-a11y": "^6",
     "@types/node": "^22.0.0",
-    "@yarnpkg/sdks": "^3.2.2",
-    "semantic-release": "^24.2.6",
-    "semantic-release-yarn": "^3.0.2",
+    "@yarnpkg/sdks": "^3.2.3",
+    "release-it": "^19.0.5",
     "tsx": "^4.20.3",
     "typescript": "^5.8.3"
   },
-  "packageManager": "yarn@4.9.2"
+  "packageManager": "yarn@4.10.3"
 }
