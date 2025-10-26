@@ -1,3 +1,11 @@
+## [1.4.3](https://github.com/imccausl/dev-scripts/compare/v1.4.2...v1.4.3) (2025-10-26)
+
+
+### Bug Fixes
+
+* attempt to use OIDC for publish ([#85](https://github.com/imccausl/dev-scripts/issues/85)) ([529dae3](https://github.com/imccausl/dev-scripts/commit/529dae3bb6aa40bc7f92d5675ee9f1535d26482c))
+* update semantic-release config ([f684d06](https://github.com/imccausl/dev-scripts/commit/f684d069e0f571f1e51cf8d17206e610fc3634b5))
+
 ## [1.4.2](https://github.com/imccausl/dev-scripts/compare/v1.4.1...v1.4.2) (2025-10-26)
 
 
