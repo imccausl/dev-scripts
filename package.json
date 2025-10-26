@@ -14,9 +14,7 @@
     "typecheck": "tsc --noEmit",
     "dev": "tsx src/index.ts"
   },
-  "bin": {
-    "dev": "./lib/index.js"
-  },
+  "bin": "./lib/index.js",
   "exports": {
     "./eslint-config": "./src/lint/config/index.js",
     "./eslint-config/base": "./src/lint/config/base.js",
