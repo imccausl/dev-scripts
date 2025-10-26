@@ -9,7 +9,7 @@
     "build": "yarn dev build",
     "lint": "yarn dev lint",
     "lint:fix": "yarn lint --fix",
-    "publish": "release",
+    "publish": "release-it",
     "format": "yarn dev format",
     "typecheck": "tsc --noEmit",
     "dev": "tsx src/index.ts"
