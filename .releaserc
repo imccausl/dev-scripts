@@ -4,6 +4,7 @@
     "@semantic-release/release-notes-generator",
     "@semantic-release/github",
     "@semantic-release/changelog",
+    "semantic-release-yarn",
     [
       "@semantic-release/git",
       {
@@ -14,7 +15,6 @@
         "message": "chore(release): release ${nextRelease.version} [skip ci]"
       }
     ],
-    "semantic-release-yarn"
   ],
   "branches": [
     "main"
