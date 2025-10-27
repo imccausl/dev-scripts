@@ -21,6 +21,7 @@ jobs:
 
       - name: Prepare Env
         uses: ./.github/actions/prepare-env
+      - run: npm install -g npm@latest
 
       - name: Restore cache
         id: restore-cache
@@ -32,7 +33,6 @@ jobs:
       - name: Build if not cached
         if: steps.restore-cache.outputs.cache-hit != 'true'
         run: yarn build
-
       - name: Publish
         run: yarn publish
         env:
