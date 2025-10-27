@@ -1,3 +1,15 @@
+## [1.4.2](https://github.com/imccausl/dev-scripts/compare/v1.4.1...v1.4.2) (2025-10-26)
+
+
+### Bug Fixes
+
+* add release-it ([#79](https://github.com/imccausl/dev-scripts/issues/79)) ([595a1bf](https://github.com/imccausl/dev-scripts/commit/595a1bf20d6e09576a3f4fa640edb10e3691cfa9))
+
+
+### Reverts
+
+* Revert "fix: add release-it ([#79](https://github.com/imccausl/dev-scripts/issues/79))" ([#84](https://github.com/imccausl/dev-scripts/issues/84)) ([14c17bc](https://github.com/imccausl/dev-scripts/commit/14c17bc292dfecd94c1d6e2a1e976c4528ac5fec))
+
 ## [1.4.1](https://github.com/imccausl/dev-scripts/compare/v1.4.0...v1.4.1) (2025-07-25)
 
 
