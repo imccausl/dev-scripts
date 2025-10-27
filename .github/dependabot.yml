@@ -18,10 +18,10 @@ updates:
           - '>= 22' # until 22 is lts
 
     groups:
-      semantic-release:
+      release-it:
         applies-to: version-updates
         patterns:
-          - 'semantic-release*'
+          - '*release-it*'
 
       eslint:
         applies-to: version-updates
