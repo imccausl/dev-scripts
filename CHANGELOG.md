@@ -1,3 +1,10 @@
+## [1.4.6](https://github.com/imccausl/dev-scripts/compare/v1.4.5...v1.4.6) (2025-10-29)
+
+
+### Bug Fixes
+
+* try with yarn modern bug fixes for scoped pkgs ([7e5cc6d](https://github.com/imccausl/dev-scripts/commit/7e5cc6dcba3e175a3796f8d5191dbfb0f61746b4))
+
 ## [1.4.5](https://github.com/imccausl/dev-scripts/compare/v1.4.4...v1.4.5) (2025-10-29)
 
 
