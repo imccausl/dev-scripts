@@ -843,7 +843,7 @@ __metadata:
     jiti: "npm:^2.4.2"
     prettier: "npm:^3.6.2"
     semantic-release: "npm:^25.0.1"
-    semantic-release-yarn: "npm:^3.0.2"
+    semantic-release-yarn: "patch:semantic-release-yarn@npm%3A3.0.2#~/.yarn/patches/semantic-release-yarn-npm-3.0.2-2d29628344.patch"
     tsdown: "npm:^0.12.9"
     tsx: "npm:^4.20.3"
     typescript: "npm:^5.8.3"
@@ -8059,7 +8059,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semantic-release-yarn@npm:^3.0.2":
+"semantic-release-yarn@npm:3.0.2":
   version: 3.0.2
   resolution: "semantic-release-yarn@npm:3.0.2"
   dependencies:
@@ -8076,6 +8076,26 @@ __metadata:
   peerDependencies:
     semantic-release: ">=19.0.0"
   checksum: 10/cffb4a64f94092193705587277ae6d475a008d523df976b01cac41201c9c4d9fb5f43266cbcbc68570e7c4a81e797635dbe0cde1dc12900716d81e5922dbe63d
+  languageName: node
+  linkType: hard
+
+"semantic-release-yarn@patch:semantic-release-yarn@npm%3A3.0.2#~/.yarn/patches/semantic-release-yarn-npm-3.0.2-2d29628344.patch":
+  version: 3.0.2
+  resolution: "semantic-release-yarn@patch:semantic-release-yarn@npm%3A3.0.2#~/.yarn/patches/semantic-release-yarn-npm-3.0.2-2d29628344.patch::version=3.0.2&hash=e43236"
+  dependencies:
+    "@semantic-release/error": "npm:^4.0.0"
+    aggregate-error: "npm:^5.0.0"
+    cosmiconfig: "npm:^8.1.0"
+    execa: "npm:^8.0.1"
+    fs-extra: "npm:^11.1.0"
+    js-yaml: "npm:^4.1.0"
+    lodash: "npm:^4.17.21"
+    nerf-dart: "npm:^1.0.0"
+    read-pkg: "npm:^8.0.0"
+    semver: "npm:^7.3.8"
+  peerDependencies:
+    semantic-release: ">=19.0.0"
+  checksum: 10/58748975ff2c7e0bf610d299358b18ee446ac3a07a8c874c6231615189e2ba6dacf1fc6c831a037c8b0655173d316278f7253d77513bd9d98e7caecf3fec26ee
   languageName: node
   linkType: hard
 
