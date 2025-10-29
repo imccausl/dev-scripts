@@ -110,7 +110,7 @@
     "@types/node": "^22.0.0",
     "@yarnpkg/sdks": "^3.2.2",
     "semantic-release": "^25.0.1",
-    "semantic-release-yarn": "^3.0.2",
+    "semantic-release-yarn": "patch:semantic-release-yarn@npm%3A3.0.2#~/.yarn/patches/semantic-release-yarn-npm-3.0.2-2d29628344.patch",
     "tsx": "^4.20.3",
     "typescript": "^5.8.3"
   },
