@@ -901,8 +901,8 @@ __metadata:
   linkType: hard
 
 "@imccausl/semantic-release-yarn@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "@imccausl/semantic-release-yarn@npm:4.0.0"
+  version: 4.0.1
+  resolution: "@imccausl/semantic-release-yarn@npm:4.0.1"
   dependencies:
     "@actions/core": "npm:^1.11.1"
     "@semantic-release/error": "npm:^4.0.0"
@@ -919,7 +919,7 @@ __metadata:
     semver: "npm:^7.3.8"
   peerDependencies:
     semantic-release: ">=19.0.0"
-  checksum: 10/b50e372dcb2d4ac43597b31bff73b048fffc0b0d11ebf79c4605776e3615b2a095e2a3b737655e4e6d4ecfbaa1b1d16918f8d8942f6d59775f0768440b33dc24
+  checksum: 10/b69637e3295c422cb05d6ee0e85fbbfdf7e2171ab41d5f079cbf3f31fc8979dcd0b4c8ddc643f946facabba0cae9f278671e204a9af21b01fadb1fc539ac81ef
   languageName: node
   linkType: hard
 
