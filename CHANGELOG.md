@@ -1,3 +1,12 @@
+## [1.4.5](https://github.com/imccausl/dev-scripts/compare/v1.4.4...v1.4.5) (2025-10-29)
+
+
+### Bug Fixes
+
+* forgot to include package.json in patch ([c2124bd](https://github.com/imccausl/dev-scripts/commit/c2124bda8f882c919435bc48ebafdfcb131347d6))
+* test yarn semantic commit patch ([#91](https://github.com/imccausl/dev-scripts/issues/91)) ([7fd438d](https://github.com/imccausl/dev-scripts/commit/7fd438d837b4c04b0c4a6adab5d50cd1f807041e))
+* try with published version ([de4c418](https://github.com/imccausl/dev-scripts/commit/de4c418e09bf1bc14703304bfe8df65d6eae65a0))
+
 ## [1.4.4](https://github.com/imccausl/dev-scripts/compare/v1.4.3...v1.4.4) (2025-10-27)
 
 
