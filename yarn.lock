@@ -820,7 +820,7 @@ __metadata:
     "@commitlint/config-conventional": "npm:^19.8.1"
     "@eslint/js": "npm:^9.30.1"
     "@imccausl/eslint-config": "npm:^4.0.3"
-    "@imccausl/semantic-release-yarn": "npm:4.0.10"
+    "@imccausl/semantic-release-yarn": "npm:4.0.11"
     "@semantic-release/changelog": "npm:^6.0.3"
     "@semantic-release/git": "npm:^10.0.1"
     "@semantic-release/npm": "npm:^13.1.1"
@@ -900,9 +900,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@imccausl/semantic-release-yarn@npm:4.0.10":
-  version: 4.0.10
-  resolution: "@imccausl/semantic-release-yarn@npm:4.0.10"
+"@imccausl/semantic-release-yarn@npm:4.0.11":
+  version: 4.0.11
+  resolution: "@imccausl/semantic-release-yarn@npm:4.0.11"
   dependencies:
     "@actions/core": "npm:^1.11.1"
     "@semantic-release/error": "npm:^4.0.0"
@@ -919,7 +919,7 @@ __metadata:
     semver: "npm:^7.3.8"
   peerDependencies:
     semantic-release: ">=19.0.0"
-  checksum: 10/caa64c06fe8f8e5b7f59163e9d1f01d0de3fb62b1014bd21f12715930335cb8cbd2482d3e7c1994f9e03962cb2887e27ea77703f8bedf7899392c1b2e808aa31
+  checksum: 10/2223bcc4cf093e61fb2a18b7a5ba65248e1fe7072d855eb76c40215556e58c0a86d9559e064c20b3146e3e34b221142971809b0b0e01b8948dea87c8f2c64584
   languageName: node
   linkType: hard
 
