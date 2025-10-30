@@ -1,3 +1,20 @@
+## [1.4.7](https://github.com/imccausl/dev-scripts/compare/v1.4.6...v1.4.7) (2025-10-30)
+
+
+### Bug Fixes
+
+* always the wrong strings ([6719da8](https://github.com/imccausl/dev-scripts/commit/6719da86765df03875de0479fb4e56226995330d))
+* and now without dryrun ([fd294b4](https://github.com/imccausl/dev-scripts/commit/fd294b4301a2c3b5209ac322071d77160f944b40))
+* examine error ([c1cc158](https://github.com/imccausl/dev-scripts/commit/c1cc158b396ec95ff61dd2211c592256cd6a08ac))
+* get more debugging info ([a5d124a](https://github.com/imccausl/dev-scripts/commit/a5d124a7bed27f8344021b62fce40cd96218e13d))
+* more logging ([f98e3d6](https://github.com/imccausl/dev-scripts/commit/f98e3d63e289b27c65b6e79414cc35c020c07df9))
+* test with more logging ([#92](https://github.com/imccausl/dev-scripts/issues/92)) ([90b3347](https://github.com/imccausl/dev-scripts/commit/90b3347291ac309b17e38368db620f31f042cdce))
+* try with only OIDC check ([c5fdf39](https://github.com/imccausl/dev-scripts/commit/c5fdf39d38c59372007b8f607b70687cd82970a8))
+* try with only OIDC check part 2 ([dd11c20](https://github.com/imccausl/dev-scripts/commit/dd11c207edc59bce214b49740167743c611d18cc))
+* try with semantic-release npm again ([45453ed](https://github.com/imccausl/dev-scripts/commit/45453edf7b2492982f603b690e474b4778d30f3e))
+* try without whoami ([26cb57c](https://github.com/imccausl/dev-scripts/commit/26cb57c9103a278ad11ca97f094fc18c30d2f285))
+* wrong CI string ([d0b04f6](https://github.com/imccausl/dev-scripts/commit/d0b04f67f684aea15c36f6e2eb11cc1915e3413b))
+
 ## [1.4.6](https://github.com/imccausl/dev-scripts/compare/v1.4.5...v1.4.6) (2025-10-29)
 
 
