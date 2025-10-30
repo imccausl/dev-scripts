@@ -20,7 +20,6 @@ jobs:
 
       - name: Prepare Env
         uses: ./.github/actions/prepare-env
-      - run: npm install -g npm@latest
 
       - name: Restore cache
         id: restore-cache
