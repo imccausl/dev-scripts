@@ -1,3 +1,14 @@
+## [1.4.8](https://github.com/imccausl/dev-scripts/compare/v1.4.7...v1.4.8) (2025-10-30)
+
+
+### Bug Fixes
+
+* extra logging ([e777222](https://github.com/imccausl/dev-scripts/commit/e777222325890e83380b346e866fe28bb9b83310))
+* test new yarn patch ([2591ab0](https://github.com/imccausl/dev-scripts/commit/2591ab0fd2c160b6b8a195414978db5575d215de))
+* test with latest semantic-release-yarn patch ([8fd2224](https://github.com/imccausl/dev-scripts/commit/8fd222433f7850dec201e17d64f3fe89db7fdbfb))
+* try with patched yarn ([20c1887](https://github.com/imccausl/dev-scripts/commit/20c1887b8a9147eb0a077d071d60c1b5e345e1ff))
+* try with scope ([b1eb1bf](https://github.com/imccausl/dev-scripts/commit/b1eb1bfed38cbe8054c6393a8e72b78ae77fc113))
+
 ## [1.4.7](https://github.com/imccausl/dev-scripts/compare/v1.4.6...v1.4.7) (2025-10-30)
 
 
