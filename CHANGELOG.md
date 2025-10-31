@@ -1,3 +1,10 @@
+## [1.4.10](https://github.com/imccausl/dev-scripts/compare/v1.4.9...v1.4.10) (2025-10-31)
+
+
+### Bug Fixes
+
+* release with updated deps ([d65e656](https://github.com/imccausl/dev-scripts/commit/d65e6561d67e8ad330721b3d25894820ff48969e))
+
 ## [1.4.9](https://github.com/imccausl/dev-scripts/compare/v1.4.8...v1.4.9) (2025-10-31)
 
 
