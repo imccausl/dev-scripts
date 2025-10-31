@@ -1,3 +1,10 @@
+## [1.4.9](https://github.com/imccausl/dev-scripts/compare/v1.4.8...v1.4.9) (2025-10-31)
+
+
+### Bug Fixes
+
+* republish and cleanup changelog after debugging OIDC ([1863c41](https://github.com/imccausl/dev-scripts/commit/1863c416c7883d65e4ed5042ff8c812d61bb35be))
+
 <<<<<<< HEAD
 ## [1.4.8](https://github.com/imccausl/dev-scripts/compare/v1.4.7...v1.4.8) (2025-10-30)
 
