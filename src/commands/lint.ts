@@ -1,8 +1,3 @@
-import { runLint } from '../lint/index.ts'
-import { registerCommand } from '../util/index.ts'
+import command from '../lint/index.js'
 
-export default registerCommand({
-  name: 'lint',
-  description: 'Code linting with ESLint',
-  action: runLint,
-})
+export default command

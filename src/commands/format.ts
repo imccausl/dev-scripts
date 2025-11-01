@@ -1,8 +1,3 @@
-import { runFormat } from '../format/index.ts'
-import { registerCommand } from '../util/index.ts'
+import command from '../format/index.js'
 
-export default registerCommand({
-  name: 'format',
-  description: 'Code formatting with Prettier',
-  action: runFormat,
-})
+export default command
