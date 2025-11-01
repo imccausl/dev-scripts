@@ -1,5 +1,7 @@
-import { createCLICommand } from '../util/command.js'
+import { createCLICommand, fromHere } from '../util/command.js'
 import { applyToAllFilesIfNoneSpecfied } from '../util/transforms.js'
+
+const hereLint = fromHere(import.meta.url)
 
 const configFiles = [
   'eslint.config.js',
@@ -15,11 +17,9 @@ export default createCLICommand({
   name: 'lint',
   description: 'Run ESLint to lint the codebase',
   config: {
-    flag: '--config',
-    hasFlag: (args: string[]) =>
-      args.includes('--config') || args.includes('-c'),
+    flag: ['--config', '-c'],
     fileNames: configFiles,
-    defaultConfigPath: './config/eslint.config.js',
+    defaultConfigPath: hereLint('./config/eslint.config.js'),
   },
   transforms: [applyToAllFilesIfNoneSpecfied],
 })

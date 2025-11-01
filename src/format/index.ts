@@ -1,5 +1,7 @@
-import { createCLICommand } from '../util/command.js'
+import { createCLICommand, fromHere} from '../util/command.js'
 import { applyToAllFilesIfNoneSpecfied } from '../util/transforms.js'
+
+const hereFormat = fromHere(import.meta.url)
 
 function writeByDefault(args: string[]) {
   if (
@@ -18,9 +20,7 @@ export default createCLICommand({
   name: 'format',
   description: 'Run Prettier to format the codebase',
   config: {
-    flag: '--config',
-    hasFlag: (args: string[]) =>
-      args.includes('--config') || args.includes('-c'),
+    flag: ['--config', '-c'],
     fileNames: [
       '.prettierrc',
       '.prettierrc.json',
@@ -35,12 +35,12 @@ export default createCLICommand({
       'prettier.config.cjs',
       'prettier.config.ts',
     ],
-    defaultConfigPath: './config/prettier.config.js',
+    defaultConfigPath: hereFormat('./config/prettier.config.js'),
   },
   ignore: {
     flag: '--ignore-path',
     fileName: '.prettierignore',
-    defaultIgnorePath: './config/prettierignore',
+    defaultIgnorePath: hereFormat('./config/prettierignore'),
   },
   transforms: [applyToAllFilesIfNoneSpecfied, writeByDefault],
 })

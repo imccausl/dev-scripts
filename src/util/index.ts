@@ -99,6 +99,10 @@ export function isYarnPnP(): boolean {
 }
 
 export function resolveConfigFile(configFilePath: string, preferCJS = false) {
+  if (hasFile(configFilePath)) {
+    return configFilePath
+  }
+
   const defaultExtensionsToCheck = ['.ts', '.mjs', '.js', '.cjs']
   const extensionsToCheck = preferCJS
     ? defaultExtensionsToCheck.reverse()
@@ -121,13 +125,17 @@ export function resolveConfigFile(configFilePath: string, preferCJS = false) {
     }
   }
 
-  throw new Error(
-    `Could not find config file. Checked for these files: ${defaultExtensionsToCheck.map((ext) => `${configFilePath}${ext}`).join(', ')}`,
-  )
+    throw new Error(
+      `Could not find config file. Checked for these files: ${defaultExtensionsToCheck.map((ext) => `${configFilePath}${ext}`).join(', ')}`,
+    )
 }
 
 export function hasExistingConfig(configFiles: string[]): boolean {
   return configFiles.some((file) => hasFile(file))
+}
+
+export function findExistingConfig(configFiles: string[]): string | null {
+  return configFiles.find((file) => hasFile(file)) ?? null
 }
 
 export function hasFile(filePath: string): boolean {

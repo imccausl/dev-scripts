@@ -1,6 +1,8 @@
-import { createCLICommand } from '../util/command.js'
+import { createCLICommand, fromHere } from '../util/command.js'
 
 export type ViteMode = 'build' | 'serve'
+
+const hereVite = fromHere(import.meta.url)
 
 export function createViteCommand(mode: ViteMode) {
   return createCLICommand({
@@ -18,7 +20,7 @@ export function createViteCommand(mode: ViteMode) {
         'vite.config.mts',
         'vite.config.cts',
       ],
-      defaultConfigPath: './config/vite',
+      defaultConfigPath: hereVite('./config/vite'),
     },
   })
 }

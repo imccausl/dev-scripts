@@ -1,24 +1,24 @@
 
 
-import { createCLICommand } from '../util/command.js'
+import { createCLICommand, fromHere } from '../util/command.js'
 
+const hereLib = fromHere(import.meta.url)
 
 export default createCLICommand({
   name: 'lib',
   command: 'tsdown',
   description: 'Compile TypeScript library code using TSDown',
   config: {
-    flag: '--config',
-    hasFlag: (args) => args.includes('--config') || args.includes('-c'),
+    flag: ['--config', '-c'],
     fileNames: [
-  'tsdown.config.js',
-  'tsdown.config.mjs',
-  'tsdown.config.cjs',
-  'tsdown.config.ts',
-  'tsdown.config.mts',
-  'tsdown.config.cts',
-],
-    defaultConfigPath: './config/tsdown',
+      'tsdown.config.js',
+      'tsdown.config.mjs',
+      'tsdown.config.cjs',
+      'tsdown.config.ts',
+      'tsdown.config.mts',
+      'tsdown.config.cts',
+    ],
+    defaultConfigPath: hereLib('./config/tsdown'),
   }
 
 
