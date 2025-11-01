@@ -1,7 +1,9 @@
-import { dirname } from 'node:path'
+import fs from 'node:fs'
+import path, { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 import {
+  findExistingConfig,
   hasExistingConfig,
   hasFile,
   here,
@@ -11,26 +13,18 @@ import {
 } from './index.js'
 
 interface IgnoreDefaults {
-  flag: string
-  hasFlag?: (args: string[]) => boolean
+  flag: string | string[]
   fileName: string
   defaultIgnorePath: string
 }
 
 interface ConfigDefaults {
-  flag?: string
-  hasFlag?: (args: string[]) => boolean
+  flag?: string | string[]
   fileNames: string[]
   defaultConfigPath: string
 }
 
 type TransformArgsFunc = (args: string[]) => string[]
-
-export interface Command {
-  description: string
-  run(): Promise<void>
-}
-
 type ArgsSeed = string[] | ((args: string[]) => string[])
 interface CLICommandOptions {
   command: string
@@ -42,41 +36,39 @@ interface CLICommandOptions {
   transforms?: TransformArgsFunc[]
 }
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
-
-export function hereRelative(p: string) {
-  return here(p, __dirname).replace(process.cwd(), '.')
-}
-
 function ensureIgnore(args: string[], ignore?: IgnoreDefaults) {
   if (!ignore) return []
 
+  const flagValues = Array.isArray(ignore.flag) ? ignore.flag : [ignore.flag]
   const hasIgnore =
-    args.includes(ignore.flag) ||
-    ignore.hasFlag?.(args) ||
-    hasFile(ignore.fileName)
+    flagValues.some((flag) => args.includes(flag)) || hasFile(ignore.fileName)
 
   if (hasIgnore) {
     return []
   }
-  return [ignore.flag, hereRelative(ignore.defaultIgnorePath)]
+  return [flagValues[0], ignore.defaultIgnorePath]
 }
 
 function ensureConfig(args: string[], config?: ConfigDefaults) {
   if (!config) return []
 
-  const flag = config.flag ?? '--config'
+  const flagValues = Array.isArray(config.flag)
+    ? config.flag
+    : [config.flag ?? '--config']
+
   const hasConfigArg =
-    args.includes(flag) ||
-    config.hasFlag?.(args) ||
-    hasExistingConfig(config.fileNames)
+    args.some((arg) => {
+      return flagValues.includes(arg)
+    }) || hasExistingConfig(config.fileNames)
 
   if (hasConfigArg) {
     return []
   }
 
-  return [flag, resolveConfigFile(config.defaultConfigPath, isYarnPnP())]
+  return [
+    flagValues[0],
+    resolveConfigFile(config.defaultConfigPath, isYarnPnP()),
+  ]
 }
 
 function applyTransforms(args: string[], transforms?: TransformArgsFunc[]) {
@@ -119,4 +111,75 @@ export const createCLICommand = ({
       }
     },
   }
+}
+
+type CommandOptions = {
+  name: string
+  description: string
+  action: ({
+    args,
+    configPath,
+  }: {
+    args: string[]
+    configPath: string | null
+  }) => Promise<void>
+  config?: ConfigDefaults
+}
+
+async function readFile(configFilePath: string) {
+  return fs.readFileSync(configFilePath, 'utf-8')
+}
+
+function resolveConfigPath(args: string[], config?: ConfigDefaults) {
+  if (!config) return null
+
+  const flagValues = Array.isArray(config.flag)
+    ? config.flag
+    : [config.flag ?? '--config']
+
+  const configArgIndex = args.findIndex((arg) => {
+    return flagValues.includes(arg)
+  })
+
+  if (configArgIndex >= 0 && hasFile(args[configArgIndex + 1])) {
+    return args[configArgIndex + 1]
+  }
+
+  try {
+    return (
+      findExistingConfig(config.fileNames) ??
+      resolveConfigFile(config.defaultConfigPath, isYarnPnP())
+    )
+  } catch (e) {
+    console.error(`Failed to resolve config path: ${e.message}`)
+    return null
+  }
+}
+
+export const createCommand = ({
+  name,
+  description,
+  action,
+  config,
+}: CommandOptions) => {
+  return {
+    name,
+    description,
+    action: async () => {
+      const args = process.argv.slice(1)
+      const configPath = resolveConfigPath(args, config)
+
+      try {
+        await action({ args, configPath })
+      } catch (error) {
+        console.error(`Failed to execute task: ${name}`, error)
+        process.exit(2)
+      }
+    },
+  }
+}
+
+export const fromHere = (moduleUrl: string) => {
+  const dir = path.dirname(fileURLToPath(moduleUrl))
+  return (p: string) => path.join(dir, p)
 }
