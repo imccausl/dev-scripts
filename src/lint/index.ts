@@ -1,19 +1,5 @@
-import { dirname } from 'node:path'
-import { fileURLToPath } from 'node:url'
-
-import {
-  hasExistingConfig,
-  here,
-  resolveConfigFile,
-  run,
-} from '../util/index.js'
-
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
-
-function hereRelative(p: string) {
-  return here(p, __dirname).replace(process.cwd(), '.')
-}
+import { createCLICommand } from '../util/command.js'
+import { applyToAllFilesIfNoneSpecfied } from '../util/transforms.js'
 
 const configFiles = [
   'eslint.config.js',
@@ -24,23 +10,16 @@ const configFiles = [
   'eslint.config.cts',
 ]
 
-export function runLint() {
-  return run('eslint', (args) => {
-    const eslintArgs: string[] = []
-    const hasConfig =
-      args.includes('--config') ||
-      args.includes('-c') ||
-      hasExistingConfig(configFiles)
-
-    if (!hasConfig) {
-      const configPath = resolveConfigFile(hereRelative('./config/index'))
-      eslintArgs.push('--config', configPath)
-    }
-
-    if (!args.some((arg) => !arg.startsWith('-'))) {
-      eslintArgs.push('.')
-    }
-
-    return eslintArgs
-  })
-}
+export default createCLICommand({
+  command: 'eslint',
+  name: 'lint',
+  description: 'Run ESLint to lint the codebase',
+  config: {
+    flag: '--config',
+    hasFlag: (args: string[]) =>
+      args.includes('--config') || args.includes('-c'),
+    fileNames: configFiles,
+    defaultConfigPath: './config/eslint.config.js',
+  },
+  transforms: [applyToAllFilesIfNoneSpecfied],
+})

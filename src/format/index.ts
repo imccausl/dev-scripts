@@ -1,75 +1,46 @@
-import { dirname } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { createCLICommand } from '../util/command.js'
+import { applyToAllFilesIfNoneSpecfied } from '../util/transforms.js'
 
-import {
-  hasExistingConfig,
-  hasFile,
-  here,
-  isYarnPnP,
-  resolveConfigFile,
-  run,
-} from '../util/index.js'
+function writeByDefault(args: string[]) {
+  if (
+    !args.includes('--write') &&
+    !args.includes('--check') &&
+    !args.includes('--list-different')
+  ) {
+    return ['--write']
+  }
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
-
-function hereRelative(p: string) {
-  console.log(`Resolving path relative to: ${__dirname}`)
-  console.log(`full path: ${here(p, __dirname).replace(process.cwd(), '.')}`)
-  return here(p, __dirname).replace(process.cwd(), '.')
+  return []
 }
 
-const configFiles = [
-  '.prettierrc',
-  '.prettierrc.json',
-  '.prettierrc.js',
-  '.prettierrc.mjs',
-  '.prettierrc.cjs',
-  '.prettierrc.ts',
-  '.prettierrc.yaml',
-  '.prettierrc.yml',
-  'prettier.config.js',
-  'prettier.config.mjs',
-  'prettier.config.cjs',
-  'prettier.config.ts',
-]
-
-export function runFormat() {
-  return run('prettier', (args) => {
-    const prettierArgs: string[] = []
-
-    const hasConfig =
-      args.includes('--config') || hasExistingConfig(configFiles)
-
-    if (!hasConfig) {
-      const configPath = resolveConfigFile(
-        hereRelative('./config/prettier.config'),
-        isYarnPnP(),
-      )
-      prettierArgs.push('--config', configPath)
-    }
-
-    const useBuiltinIgnore =
-      !args.includes('--ignore-path') && !hasFile('.prettierignore')
-
-    if (useBuiltinIgnore) {
-      prettierArgs.push(
-        '--ignore-path',
-        hereRelative('./config/prettierignore'),
-      )
-    }
-    if (!args.some((arg) => !arg.startsWith('-'))) {
-      prettierArgs.push('.')
-    }
-
-    if (
-      !args.includes('--write') &&
-      !args.includes('--check') &&
-      !args.includes('--list-different')
-    ) {
-      prettierArgs.push('--write')
-    }
-
-    return prettierArgs
-  })
-}
+export default createCLICommand({
+  command: 'prettier',
+  name: 'format',
+  description: 'Run Prettier to format the codebase',
+  config: {
+    flag: '--config',
+    hasFlag: (args: string[]) =>
+      args.includes('--config') || args.includes('-c'),
+    fileNames: [
+      '.prettierrc',
+      '.prettierrc.json',
+      '.prettierrc.js',
+      '.prettierrc.mjs',
+      '.prettierrc.cjs',
+      '.prettierrc.ts',
+      '.prettierrc.yaml',
+      '.prettierrc.yml',
+      'prettier.config.js',
+      'prettier.config.mjs',
+      'prettier.config.cjs',
+      'prettier.config.ts',
+    ],
+    defaultConfigPath: './config/prettier.config.js',
+  },
+  ignore: {
+    flag: '--ignore-path',
+    fileName: '.prettierignore',
+    defaultIgnorePath: './config/prettierignore',
+  },
+  transforms: [applyToAllFilesIfNoneSpecfied, writeByDefault],
+})

@@ -1,4 +1,4 @@
-import { defineMergedConfig } from './src/build/config/tsdown.ts'
+import { defineMergedConfig } from './src/lib/config/tsdown.ts'
 
 export default defineMergedConfig({
   entry: ['src/index.ts', 'src/commands/**/*.ts', 'src/**/config/*.ts'],

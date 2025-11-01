@@ -811,7 +811,7 @@ __metadata:
     "@commitlint/cli": "npm:^19.8.1"
     "@commitlint/config-conventional": "npm:^19.8.1"
     "@eslint/js": "npm:^9.38.0"
-    "@imccausl/eslint-config": "npm:^4.0.3"
+    "@imccausl/eslint-config": "npm:^4.0.6"
     "@imccausl/semantic-release-yarn": "npm:^4.0.12"
     "@semantic-release/changelog": "npm:^6.0.3"
     "@semantic-release/git": "npm:^10.0.1"
@@ -849,25 +849,25 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@imccausl/eslint-config@npm:^4.0.3":
-  version: 4.0.4
-  resolution: "@imccausl/eslint-config@npm:4.0.4"
+"@imccausl/eslint-config@npm:^4.0.6":
+  version: 4.0.6
+  resolution: "@imccausl/eslint-config@npm:4.0.6"
   dependencies:
-    globals: "npm:^16.3.0"
+    globals: "npm:^16.4.0"
   peerDependencies:
-    "@eslint/js": ^9.30.1
+    "@eslint/js": ^9.38.0
     "@tanstack/eslint-plugin-query": ^5.62.1
     "@typescript-eslint/eslint-plugin": ^8.0.0
     "@typescript-eslint/parser": ^8.0.0
-    "@vitest/eslint-plugin": ^1.3.4
+    "@vitest/eslint-plugin": ^1.3.25
     eslint: ^9
     eslint-config-prettier: ">=9.1.0"
-    eslint-import-resolver-typescript: ^3.6.1
+    eslint-import-resolver-typescript: ^4.4.4
     eslint-plugin-import-x: ^4.5.0
     eslint-plugin-jsx-a11y: ^6.10.2
     eslint-plugin-react: ^7.37.2
-    eslint-plugin-react-hooks: ^5.1.0
-    eslint-plugin-testing-library: ^7.1.1
+    eslint-plugin-react-hooks: ^7.0.1
+    eslint-plugin-testing-library: ^7.13.3
     typescript: ">=5.3"
     typescript-eslint: ^8.0.0
   dependenciesMeta:
@@ -888,7 +888,7 @@ __metadata:
       optional: true
     eslint-plugin-testing-library:
       optional: true
-  checksum: 10/a5d31b636a1e06e65de7ec710b25a7b26bcceab2926eef8a6f1a85c7450ba1b153928bebee2e35eb3c23e2e3dec498e53c2a9b48aa13c7342e837bde39674956
+  checksum: 10/f1712af4badd8d6fa58645a8acbead975525acfd79f2be88f13ab9b7dd2549e3c2d22ef8c26b15bd75f87d61a564c1cab58291430b4fe1efd48084dad681a49b
   languageName: node
   linkType: hard
 
@@ -4947,10 +4947,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"globals@npm:^16.3.0":
-  version: 16.3.0
-  resolution: "globals@npm:16.3.0"
-  checksum: 10/accb0939d993a1c461df8d961ce9911a9a96120929e0a61057ae8e75b7df0a8bf8089da0f4e3a476db0211156416fbd26e222a56f74b389a140b34481c0a72b0
+"globals@npm:^16.4.0":
+  version: 16.4.0
+  resolution: "globals@npm:16.4.0"
+  checksum: 10/1627a9f42fb4c82d7af6a0c8b6cd616e00110908304d5f1ddcdf325998f3aed45a4b29d8a1e47870f328817805263e31e4f1673f00022b9c2b210552767921cf
   languageName: node
   linkType: hard
 
