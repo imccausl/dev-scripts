@@ -811,10 +811,11 @@ __metadata:
     "@commitlint/cli": "npm:^19.8.1"
     "@commitlint/config-conventional": "npm:^19.8.1"
     "@eslint/js": "npm:^9.38.0"
-    "@imccausl/eslint-config": "npm:^4.0.5"
+    "@imccausl/eslint-config": "npm:^4.0.6"
     "@imccausl/semantic-release-yarn": "npm:^4.0.12"
     "@semantic-release/changelog": "npm:^6.0.3"
     "@semantic-release/git": "npm:^10.0.1"
+    "@semantic-release/npm": "npm:^13.1.1"
     "@tanstack/eslint-plugin-query": "npm:^5.91.2"
     "@types/eslint-plugin-jsx-a11y": "npm:^6"
     "@types/node": "npm:^22.0.0"
@@ -848,9 +849,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@imccausl/eslint-config@npm:^4.0.5":
-  version: 4.0.5
-  resolution: "@imccausl/eslint-config@npm:4.0.5"
+"@imccausl/eslint-config@npm:^4.0.6":
+  version: 4.0.6
+  resolution: "@imccausl/eslint-config@npm:4.0.6"
   dependencies:
     globals: "npm:^16.4.0"
   peerDependencies:
@@ -861,7 +862,7 @@ __metadata:
     "@vitest/eslint-plugin": ^1.3.25
     eslint: ^9
     eslint-config-prettier: ">=9.1.0"
-    eslint-import-resolver-typescript: ^3.6.1
+    eslint-import-resolver-typescript: ^4.4.4
     eslint-plugin-import-x: ^4.5.0
     eslint-plugin-jsx-a11y: ^6.10.2
     eslint-plugin-react: ^7.37.2
@@ -887,7 +888,7 @@ __metadata:
       optional: true
     eslint-plugin-testing-library:
       optional: true
-  checksum: 10/568d616ced5656ef505ffe3b2686daec36c5381b56d4a1d8084411bc40828e6fa303c4ba64e1d003aeace1640df05c977078f107fdb0d4ca085b60766dc808ed
+  checksum: 10/f1712af4badd8d6fa58645a8acbead975525acfd79f2be88f13ab9b7dd2549e3c2d22ef8c26b15bd75f87d61a564c1cab58291430b4fe1efd48084dad681a49b
   languageName: node
   linkType: hard
 

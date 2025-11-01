@@ -75,10 +75,7 @@
   ],
   "dependencies": {
     "@eslint/js": "^9.38.0",
-    "@imccausl/eslint-config": "^4.0.5",
-    "@imccausl/semantic-release-yarn": "^4.0.12",
-    "@semantic-release/changelog": "^6.0.3",
-    "@semantic-release/git": "^10.0.1",
+    "@imccausl/eslint-config": "^4.0.6",
     "@tanstack/eslint-plugin-query": "^5.91.2",
     "@typescript-eslint/eslint-plugin": "^8.36.0",
     "@typescript-eslint/parser": "^8.36.0",
@@ -95,7 +92,6 @@
     "eslint-plugin-testing-library": "^7.13.3",
     "jiti": "^2.4.2",
     "prettier": "^3.6.2",
-    "semantic-release": "^25.0.1",
     "tsdown": "^0.15.11",
     "typescript-eslint": "^8.46.2",
     "vite": "^7.1.12"
@@ -107,9 +103,14 @@
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
+    "@imccausl/semantic-release-yarn": "^4.0.12",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/npm": "^13.1.1",
     "@types/eslint-plugin-jsx-a11y": "^6",
     "@types/node": "^22.0.0",
     "@yarnpkg/sdks": "^3.2.2",
+    "semantic-release": "^25.0.1",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3"
   },
