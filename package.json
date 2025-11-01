@@ -6,7 +6,7 @@
     "clean": "rm -rf lib",
     "compile": "tsc -b ./tsconfig.build.json",
     "copy-assets": "tsx infrastructure/copy-assets.ts",
-    "build": "yarn dev build",
+    "build": "yarn dev lib",
     "publish": "semantic-release",
     "lint": "yarn dev lint",
     "lint:fix": "yarn lint --fix",
@@ -51,8 +51,8 @@
         "default": "./lib/lint/config/base.js"
       },
       "./tsdown": {
-        "types": "./lib/build/config/tsdown.d.ts",
-        "default": "./lib/build/config/tsdown.js"
+        "types": "./lib/lib/config/tsdown.d.ts",
+        "default": "./lib/lib/config/tsdown.js"
       },
       "./vite": {
         "types": "./lib/build/config/vite/index.d.ts",
