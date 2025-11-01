@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/imccausl/dev-scripts/compare/v2.0.0...v2.0.1) (2025-11-01)
+
+
+### Bug Fixes
+
+* resolve paths relative to command folders correctly ([33a9faf](https://github.com/imccausl/dev-scripts/commit/33a9fafc29f860d004b455f436504e7c035cda7d))
+
 # [2.0.0](https://github.com/imccausl/dev-scripts/compare/v1.4.10...v2.0.0) (2025-11-01)
 
 
