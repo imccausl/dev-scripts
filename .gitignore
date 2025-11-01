@@ -19,3 +19,4 @@ node_modules
 # artifacts
 lib
 *.tsbuildinfo
+!src/lib
