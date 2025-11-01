@@ -1,3 +1,21 @@
+# [2.0.0](https://github.com/imccausl/dev-scripts/compare/v1.4.10...v2.0.0) (2025-11-01)
+
+
+### Features
+
+* split off lib command from build ([#93](https://github.com/imccausl/dev-scripts/issues/93)) ([f119d9d](https://github.com/imccausl/dev-scripts/commit/f119d9d58406dd18ec4d81e969e74a5f654fb6be))
+
+
+### BREAKING CHANGES
+
+* The build --bundle arg has been removed in favour of splitting build into `build` for bundling and `lib` for compiling library code. If you use `yarn dev build --bundle` simply change that to `yarn dev lib`.
+
+* wip: update package.json for changes
+
+* wip: don't ignore the src/lib directory
+
+* wip: remove release wip command
+
 ## [1.4.10](https://github.com/imccausl/dev-scripts/compare/v1.4.9...v1.4.10) (2025-10-31)
 
 
