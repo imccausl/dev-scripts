@@ -195,22 +195,3 @@ export async function run(
     process.exit(2)
   }
 }
-interface TaskDefinition {
-  name: string
-  description: string
-  action: () => Promise<void>
-}
-
-export function registerCommand({ name, description, action }: TaskDefinition) {
-  return {
-    description,
-    action: async () => {
-      try {
-        await action()
-      } catch (error) {
-        console.error(`Failed to execute task: ${name}`, error)
-        process.exit(2)
-      }
-    },
-  }
-}

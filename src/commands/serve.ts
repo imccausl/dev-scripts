@@ -1,8 +1,3 @@
-import { runServe } from '../build/serve.ts'
-import { registerCommand } from '../util/index.ts'
+import { serveCommand } from '../build/index.js'
 
-export default registerCommand({
-  name: 'serve',
-  description: 'Run the development server for local development.',
-  action: runServe,
-})
+export default serveCommand

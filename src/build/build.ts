@@ -1,3 +1,3 @@
 import { createViteCommand } from './util.ts'
 
-export default createViteCommand('serve')
+export default createViteCommand('build')

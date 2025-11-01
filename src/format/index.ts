@@ -19,9 +19,8 @@ export default createCLICommand({
   description: 'Run Prettier to format the codebase',
   config: {
     flag: '--config',
-    hasFlag: (args: string[]) => {
-      return args.includes('--config') || args.includes('-c')
-    },
+    hasFlag: (args: string[]) =>
+      args.includes('--config') || args.includes('-c'),
     fileNames: [
       '.prettierrc',
       '.prettierrc.json',

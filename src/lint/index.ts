@@ -16,9 +16,8 @@ export default createCLICommand({
   description: 'Run ESLint to lint the codebase',
   config: {
     flag: '--config',
-    hasFlag: (args: string[]) => {
-      return args.includes('--config') || args.includes('-c')
-    },
+    hasFlag: (args: string[]) =>
+      args.includes('--config') || args.includes('-c'),
     fileNames: configFiles,
     defaultConfigPath: './config/eslint.config.js',
   },

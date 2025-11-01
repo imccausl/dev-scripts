@@ -31,10 +31,12 @@ export interface Command {
   run(): Promise<void>
 }
 
+type ArgsSeed = string[] | ((args: string[]) => string[])
 interface CLICommandOptions {
   command: string
   name: string
   description: string
+  baseArgs?: ArgsSeed
   config?: ConfigDefaults
   ignore?: IgnoreDefaults
   transforms?: TransformArgsFunc[]
@@ -81,16 +83,24 @@ function applyTransforms(args: string[], transforms?: TransformArgsFunc[]) {
   return transforms?.flatMap((transform) => transform(args)) ?? []
 }
 
+function seedBaseArgs(incomingArgs: string[], baseSeed?: ArgsSeed) {
+  return typeof baseSeed === 'function'
+    ? baseSeed(incomingArgs)
+    : (baseSeed ?? [])
+}
+
 export const createCLICommand = ({
   command,
   name,
   description,
+  baseArgs,
   config,
   ignore,
   transforms,
 }: CLICommandOptions) => {
   const buildArgs = (incomingArgs: string[]) => {
     return [
+      ...seedBaseArgs(incomingArgs, baseArgs),
       ...ensureConfig(incomingArgs, config),
       ...ensureIgnore(incomingArgs, ignore),
       ...applyTransforms(incomingArgs, transforms),
