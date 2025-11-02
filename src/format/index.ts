@@ -1,4 +1,4 @@
-import { createCLICommand, fromHere} from '../util/command.js'
+import { createCLICommand, fromHere } from '../util/command.js'
 import { applyToAllFilesIfNoneSpecfied } from '../util/transforms.js'
 
 const hereFormat = fromHere(import.meta.url)

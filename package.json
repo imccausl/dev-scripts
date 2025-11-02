@@ -16,6 +16,7 @@
   },
   "bin": "./lib/index.js",
   "exports": {
+    "./semantic-release-npm-config": "./src/release/config/index.ts",
     "./eslint-config": "./src/lint/config/index.js",
     "./eslint-config/base": "./src/lint/config/base.js",
     "./tsdown": {
@@ -42,6 +43,10 @@
     "tag": "latest",
     "access": "public",
     "exports": {
+      "./semantic-release-npm-config": {
+        "default": "./lib/release/config/index.js",
+        "types": "./lib/release/config/index.d.ts"
+      },
       "./eslint-config": {
         "types": "./lib/lint/config/index.d.ts",
         "default": "./lib/lint/config/index.js"
@@ -94,7 +99,8 @@
     "prettier": "^3.6.2",
     "tsdown": "^0.15.11",
     "typescript-eslint": "^8.46.2",
-    "vite": "^7.1.12"
+    "vite": "^7.1.12",
+    "yaml": "^2.8.1"
   },
   "peerDependencies": {
     "eslint": "^9.0.0",

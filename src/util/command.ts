@@ -1,4 +1,3 @@
-import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -123,10 +122,6 @@ type CommandOptions = {
     configPath: string | null
   }) => Promise<void>
   config?: ConfigDefaults
-}
-
-async function readFile(configFilePath: string) {
-  return fs.readFileSync(configFilePath, 'utf-8')
 }
 
 function resolveConfigPath(args: string[], config?: ConfigDefaults) {

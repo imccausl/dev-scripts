@@ -8,6 +8,7 @@
     "infrastructure",
     "eslint.config.ts",
     "prettier.config.cjs",
-    "tsdown.config.ts"
+    "tsdown.config.ts",
+    "release.config.mjs"
   ]
 }
