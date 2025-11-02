@@ -79,8 +79,8 @@
     "lib"
   ],
   "dependencies": {
-    "@eslint/js": "^9.38.0",
-    "@imccausl/eslint-config": "^4.0.6",
+    "@eslint/js": "^9.39.0",
+    "@imccausl/eslint-config": "^4.0.9",
     "@imccausl/semantic-release-yarn": "^4.0.12",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/commit-analyzer": "^13.0.1",

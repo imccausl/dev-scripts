@@ -22,12 +22,12 @@ export default createCommand({
   },
    action: async ({ configPath }) => {
     const parsedConfig = configPath ? await parseConfig(configPath) : null
-    const semanticRelease = await import('semantic-release')
     if (!parsedConfig) {
       throw new Error(
         'No configuration found for semantic-release. Provide a valid config file at the root of your project.',
       )
     }
+    const semanticRelease = await import('semantic-release')
     await semanticRelease.default(parsedConfig)
   },
 })
