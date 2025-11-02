@@ -1,4 +1,4 @@
-# dev-scripts
+# dev-scripts 
 
 Scripts for maintaining Typescript projects: linting, typescript config, build, etc.
 
