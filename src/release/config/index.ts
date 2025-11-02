@@ -1,12 +1,16 @@
+import { createRequire } from 'node:module'
+
+const require = createRequire(import.meta.url)
+
 export default {
   plugins: [
-    '@semantic-release/commit-analyzer',
-    '@semantic-release/release-notes-generator',
-    '@semantic-release/github',
-    '@semantic-release/changelog',
-    '@imccausl/semantic-release-yarn',
+    require.resolve('@semantic-release/commit-analyzer'),
+    require.resolve('@semantic-release/release-notes-generator'),
+    require.resolve('@semantic-release/github'),
+    require.resolve('@semantic-release/changelog'),
+    require.resolve('@imccausl/semantic-release-yarn'),
     [
-      '@semantic-release/git',
+      require.resolve('@semantic-release/git'),
       {
         assets: ['CHANGELOG.md', 'package.json'],
         message: 'chore(release): release ${nextRelease.version} [skip ci]',

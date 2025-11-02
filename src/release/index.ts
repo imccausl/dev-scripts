@@ -1,10 +1,11 @@
-import { createCLICommand, fromHere } from '../util/command.js'
+import { createCommand, fromHere } from '../util/command.js'
+
+import { parseConfig } from './utils.ts'
 
 const hereRelease = fromHere(import.meta.url)
 
-export default createCLICommand({
+export default createCommand({
   name: 'release',
-  command: 'semantic-release',
   description: 'Run semantic-release to publish a new release',
   config: {
     flag: '--extends',
@@ -18,5 +19,15 @@ export default createCLICommand({
       'release.config.cts',
     ],
     defaultConfigPath: hereRelease('./config/index.js'),
+  },
+   action: async ({ configPath }) => {
+    const parsedConfig = configPath ? await parseConfig(configPath) : null
+    const semanticRelease = await import('semantic-release')
+    if (!parsedConfig) {
+      throw new Error(
+        'No configuration found for semantic-release. Provide a valid config file at the root of your project.',
+      )
+    }
+    await semanticRelease.default(parsedConfig)
   },
 })
