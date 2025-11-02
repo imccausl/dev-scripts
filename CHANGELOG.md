@@ -1,3 +1,10 @@
+# [2.1.0](https://github.com/imccausl/dev-scripts/compare/v2.0.1...v2.1.0) (2025-11-02)
+
+
+### Features
+
+* force publish add release command ([819d155](https://github.com/imccausl/dev-scripts/commit/819d1550f269cb9d78eacdfc0985c6d61d3668c2))
+
 ## [2.0.1](https://github.com/imccausl/dev-scripts/compare/v2.0.0...v2.0.1) (2025-11-01)
 
 
