@@ -125,9 +125,9 @@ export function resolveConfigFile(configFilePath: string, preferCJS = false) {
     }
   }
 
-    throw new Error(
-      `Could not find config file. Checked for these files: ${defaultExtensionsToCheck.map((ext) => `${configFilePath}${ext}`).join(', ')}`,
-    )
+  throw new Error(
+    `Could not find config file. Checked for these files: ${defaultExtensionsToCheck.map((ext) => `${configFilePath}${ext}`).join(', ')}`,
+  )
 }
 
 export function hasExistingConfig(configFiles: string[]): boolean {
