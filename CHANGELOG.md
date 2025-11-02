@@ -1,3 +1,10 @@
+## [2.1.2](https://github.com/imccausl/dev-scripts/compare/v2.1.1...v2.1.2) (2025-11-02)
+
+
+### Bug Fixes
+
+* update eslint config ([b0e0f58](https://github.com/imccausl/dev-scripts/commit/b0e0f5885835c5de127c9fc401c8ec9179e5b514))
+
 ## [2.1.1](https://github.com/imccausl/dev-scripts/compare/v2.1.0...v2.1.1) (2025-11-02)
 
 
