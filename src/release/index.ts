@@ -18,5 +18,5 @@ export default createCLICommand({
       'release.config.cts',
     ],
     defaultConfigPath: hereRelease('./config/index.js'),
-  }
+  },
 })
