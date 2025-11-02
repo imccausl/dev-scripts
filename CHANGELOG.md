@@ -1,3 +1,10 @@
+## [2.1.1](https://github.com/imccausl/dev-scripts/compare/v2.1.0...v2.1.1) (2025-11-02)
+
+
+### Bug Fixes
+
+* release command should work with default config ([45a0f5f](https://github.com/imccausl/dev-scripts/commit/45a0f5fb0fc8857cc83c176f399bd1ea14989d56))
+
 # [2.1.0](https://github.com/imccausl/dev-scripts/compare/v2.0.1...v2.1.0) (2025-11-02)
 
 
