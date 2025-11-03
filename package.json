@@ -116,7 +116,7 @@
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
-    "@commitlint/config-conventional": "^19.8.1",
+    "@commitlint/config-conventional": "^20.0.0",
     "@types/eslint-plugin-jsx-a11y": "^6",
     "@types/node": "^22.0.0",
     "@yarnpkg/sdks": "^3.2.2",
