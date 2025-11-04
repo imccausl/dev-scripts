@@ -119,7 +119,7 @@
     "@commitlint/config-conventional": "^19.8.1",
     "@types/eslint-plugin-jsx-a11y": "^6",
     "@types/node": "^22.0.0",
-    "@yarnpkg/sdks": "^3.2.2",
+    "@yarnpkg/sdks": "^3.2.3",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3"
   },
