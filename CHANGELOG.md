@@ -1,3 +1,10 @@
+## [2.1.3](https://github.com/imccausl/dev-scripts/compare/v2.1.2...v2.1.3) (2025-11-04)
+
+
+### Bug Fixes
+
+* update dependencies ([c2523bd](https://github.com/imccausl/dev-scripts/commit/c2523bde8ad9fd3dd6b5250fbd3807bc3f62af2d))
+
 ## [2.1.2](https://github.com/imccausl/dev-scripts/compare/v2.1.1...v2.1.2) (2025-11-02)
 
 
