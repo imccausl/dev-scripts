@@ -111,7 +111,6 @@ export function resolveConfigFile(configFilePath: string, preferCJS = false) {
   const possiblePaths = extensionsToCheck.map((ext) => {
     return () => {
       const filePath = `${configFilePath}${ext}`
-      console.log(`Checking for config file: ${filePath}`)
       if (hasFile(filePath)) return filePath
       throw new Error(`File not found: ${filePath}`)
     }
@@ -130,8 +129,13 @@ export function resolveConfigFile(configFilePath: string, preferCJS = false) {
   )
 }
 
-export function hasExistingConfig(configFiles: string[]): boolean {
-  return configFiles.some((file) => hasFile(file))
+export async function hasExistingConfig(configFiles: string[], predicate?:  (file: string) => Promise<boolean>): Promise<boolean> {
+ for (const file of configFiles) {
+   if (hasFile(file)) {
+     return !predicate || await predicate(file)
+   }
+ }
+ return false
 }
 
 export function findExistingConfig(configFiles: string[]): string | null {
@@ -146,11 +150,11 @@ export function here(p: string, dirname = __dirname) {
   return path.join(dirname, p)
 }
 
-export type AdditionalArgs = (args: string[]) => string[]
+export type AdditionalArgs = (args: string[]) => Promise<string[]>
 
 export async function run(
   tool: string,
-  additionalArgs: AdditionalArgs = () => [],
+  additionalArgs: AdditionalArgs = async () => [],
 ) {
   const args = process.argv.slice(2)
   if (args.includes('--version') || args.includes('-v')) {
@@ -160,7 +164,7 @@ export async function run(
   }
 
   try {
-    const scriptArgs = [...additionalArgs(args), ...args]
+    const scriptArgs = [...(await additionalArgs(args)), ...args]
     const { manager, hasExec } = detectPackageManager()
     const [command, execArgs] = getExecCommand(manager, hasExec)
 
