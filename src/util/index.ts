@@ -129,13 +129,16 @@ export function resolveConfigFile(configFilePath: string, preferCJS = false) {
   )
 }
 
-export async function hasExistingConfig(configFiles: string[], predicate?:  (file: string) => Promise<boolean>): Promise<boolean> {
- for (const file of configFiles) {
-   if (hasFile(file)) {
-     return !predicate || await predicate(file)
-   }
- }
- return false
+export async function hasExistingConfig(
+  configFiles: string[],
+  predicate?: (file: string) => Promise<boolean>,
+): Promise<boolean> {
+  for (const file of configFiles) {
+    if (hasFile(file)) {
+      return !predicate || (await predicate(file))
+    }
+  }
+  return false
 }
 
 export function findExistingConfig(configFiles: string[]): string | null {
@@ -151,6 +154,24 @@ export function here(p: string, dirname = __dirname) {
 }
 
 export type AdditionalArgs = (args: string[]) => Promise<string[]>
+
+async function execute(command: string, args: string[], options = {}) {
+  const { promise, resolve, reject } = Promise.withResolvers<number>()
+
+  const child = spawn(command, args, {
+    stdio: 'inherit',
+    ...options,
+  })
+
+  child.on('exit', (code) => {
+    resolve(code || 0)
+  })
+  child.on('error', (error) => {
+    reject(error.message)
+  })
+
+  return promise
+}
 
 export async function run(
   tool: string,
@@ -172,38 +193,23 @@ export async function run(
       const toolInfo = getDevScriptsToolPath(tool)
       if (toolInfo) {
         console.log(`${tool} not found in host project, using from dev-scripts`)
-        const child = spawn(
-          toolInfo.command,
-          [...toolInfo.args, ...scriptArgs],
-          {
-            stdio: 'inherit',
-          },
-        )
-
-        child.on('exit', (code) => process.exit(code || 0))
-        child.on('error', (error) => {
-          console.error(`Failed to start ${tool}:`, error)
-          process.exit(2)
-        })
-        return
+        const exitCode = await execute(toolInfo.command, [
+          ...toolInfo.args,
+          ...scriptArgs,
+        ])
+        process.exit(exitCode)
       }
       throw new Error(`${tool} not found in host project or dev-scripts`)
     }
 
-    const child = spawn(command, [...execArgs, tool, ...scriptArgs], {
-      stdio: 'inherit',
-    })
-
-    child.on('exit', (code) => {
-      process.exit(code || 0)
-    })
-
-    child.on('error', (error) => {
-      console.error(`Failed to start ${tool}:`, error)
-      process.exit(2)
-    })
+    const exitCode = await execute(command, [...execArgs, tool, ...scriptArgs])
+    process.exit(exitCode)
   } catch (error) {
-    console.error(`${tool} error:`, error)
-    process.exit(2)
+    if (error instanceof Error) {
+      console.error(`Error running ${tool}:`, error)
+      process.exit(process.exitCode || 1)
+    }
+    console.error(`Unknown error running ${tool}:`, error)
+    process.exit(process.exitCode || 1)
   }
 }

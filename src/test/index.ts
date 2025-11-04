@@ -26,9 +26,11 @@ export default createCLICommand({
     predicate: async (filePath: string) => {
       if (filePath.startsWith('vitest.config')) return true
       // if a vite.config file is found, check if there is a test config present
-      const fileContent = await import(pathToFileURL(path.resolve(filePath)).toString())
+      const fileContent = await import(
+        pathToFileURL(path.resolve(filePath)).toString()
+      )
       return 'test' in fileContent.default
     },
     defaultConfigPath: fromHere(import.meta.url)('./config/index'),
-  }
+  },
 })

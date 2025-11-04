@@ -58,7 +58,7 @@ async function ensureConfig(args: string[], config?: ConfigDefaults) {
   const hasConfigArg =
     args.some((arg) => {
       return flagValues.includes(arg)
-    }) || await hasExistingConfig(config.fileNames, config.predicate)
+    }) || (await hasExistingConfig(config.fileNames, config.predicate))
 
   if (hasConfigArg) {
     return []
