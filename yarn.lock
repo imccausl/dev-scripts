@@ -846,7 +846,7 @@ __metadata:
     jiti: "npm:^2.4.2"
     prettier: "npm:^3.6.2"
     semantic-release: "npm:^25.0.1"
-    tsdown: "npm:^0.15.11"
+    tsdown: "npm:^0.15.12"
     tsx: "npm:^4.20.6"
     typescript: "npm:^5.9.3"
     typescript-eslint: "npm:^8.46.2"
@@ -1436,13 +1436,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oxc-project/runtime@npm:^0.95.0":
-  version: 0.95.0
-  resolution: "@oxc-project/runtime@npm:0.95.0"
-  checksum: 10/0c6acde5557096ca9cf708b8e5830c900416d5cba3958c641d815460928406efc56eb244eb4b1e2ae7a60bcd4f23021a3a391eeba599734e1c562ed6a2681b2c
-  languageName: node
-  linkType: hard
-
 "@oxc-project/types@npm:=0.95.0":
   version: 0.95.0
   resolution: "@oxc-project/types@npm:0.95.0"
@@ -1454,13 +1447,6 @@ __metadata:
   version: 0.11.0
   resolution: "@pkgjs/parseargs@npm:0.11.0"
   checksum: 10/115e8ceeec6bc69dff2048b35c0ab4f8bbee12d8bb6c1f4af758604586d802b6e669dcb02dda61d078de42c2b4ddce41b3d9e726d7daa6b4b850f4adbf7333ff
-  languageName: node
-  linkType: hard
-
-"@pkgr/core@npm:^0.2.9":
-  version: 0.2.9
-  resolution: "@pkgr/core@npm:0.2.9"
-  checksum: 10/bb2fb86977d63f836f8f5b09015d74e6af6488f7a411dcd2bfdca79d76b5a681a9112f41c45bdf88a9069f049718efc6f3900d7f1de66a2ec966068308ae517f
   languageName: node
   linkType: hard
 
@@ -7911,9 +7897,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rolldown-plugin-dts@npm:^0.17.1":
-  version: 0.17.2
-  resolution: "rolldown-plugin-dts@npm:0.17.2"
+"rolldown-plugin-dts@npm:^0.17.2":
+  version: 0.17.3
+  resolution: "rolldown-plugin-dts@npm:0.17.3"
   dependencies:
     "@babel/generator": "npm:^7.28.5"
     "@babel/parser": "npm:^7.28.5"
@@ -7939,7 +7925,7 @@ __metadata:
       optional: true
     vue-tsc:
       optional: true
-  checksum: 10/c072e539dc887cf19085b2086bdbe0363a519273deb36f59ed384e5c990a735c58e9f1402464849279ae188c6816752f873d5b4e7ed24c5ec2a2d321447b8529
+  checksum: 10/d8590a95e0111bd31a8083b7653d405ca86708f03ef6e81de7fdcf8c4d6f1efa0ea511266bb17b2fee7a5c67fc0ba9d2287de37e475d648acf4d98ce59f94347
   languageName: node
   linkType: hard
 
@@ -8751,15 +8737,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"synckit@npm:^0.11.11":
-  version: 0.11.11
-  resolution: "synckit@npm:0.11.11"
-  dependencies:
-    "@pkgr/core": "npm:^0.2.9"
-  checksum: 10/6ecd88212b5be80004376b6ea74babcba284566ff59a50d8803afcaa78c165b5d268635c1dd84532ee3f690a979409e1eda225a8a35bed2d135ffdcea06ce7b0
-  languageName: node
-  linkType: hard
-
 "tar@npm:^6.0.5":
   version: 6.2.1
   resolution: "tar@npm:6.2.1"
@@ -8943,9 +8920,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tsdown@npm:^0.15.11":
-  version: 0.15.11
-  resolution: "tsdown@npm:0.15.11"
+"tsdown@npm:^0.15.12":
+  version: 0.15.12
+  resolution: "tsdown@npm:0.15.12"
   dependencies:
     ansis: "npm:^4.2.0"
     cac: "npm:^6.7.14"
@@ -8955,19 +8932,19 @@ __metadata:
     empathic: "npm:^2.0.0"
     hookable: "npm:^5.5.3"
     rolldown: "npm:1.0.0-beta.45"
-    rolldown-plugin-dts: "npm:^0.17.1"
+    rolldown-plugin-dts: "npm:^0.17.2"
     semver: "npm:^7.7.3"
     tinyexec: "npm:^1.0.1"
     tinyglobby: "npm:^0.2.15"
     tree-kill: "npm:^1.2.2"
     unconfig: "npm:^7.3.3"
-    unrun: "npm:^0.2.0"
   peerDependencies:
     "@arethetypeswrong/core": ^0.18.1
     publint: ^0.3.0
     typescript: ^5.0.0
     unplugin-lightningcss: ^0.4.0
     unplugin-unused: ^0.5.0
+    unrun: ^0.2.1
   peerDependenciesMeta:
     "@arethetypeswrong/core":
       optional: true
@@ -8979,9 +8956,11 @@ __metadata:
       optional: true
     unplugin-unused:
       optional: true
+    unrun:
+      optional: true
   bin:
     tsdown: dist/run.mjs
-  checksum: 10/b01a9a2f140384b077b266b74e70620dfab16884164bcea8f96575ba349775bb57931bb4ecd12bc6852d20d093a2e153def99317b4310ef9a637c2c76566c928
+  checksum: 10/93a2fb2038f587ea4d9898f05255703dc50e53a25c7dc4b792ac7d27b63868d34d68cb475ffed285c8f60a695b73d17feb4426377443156769d1e4a484172d17
   languageName: node
   linkType: hard
 
@@ -9333,19 +9312,6 @@ __metadata:
     "@unrs/resolver-binding-win32-x64-msvc":
       optional: true
   checksum: 10/4de653508cbaae47883a896bd5cdfef0e5e87b428d62620d16fd35cd534beaebf08ebf0cf2f8b4922aa947b2fe745180facf6cc3f39ba364f7ce0f974cb06a70
-  languageName: node
-  linkType: hard
-
-"unrun@npm:^0.2.0":
-  version: 0.2.1
-  resolution: "unrun@npm:0.2.1"
-  dependencies:
-    "@oxc-project/runtime": "npm:^0.95.0"
-    rolldown: "npm:1.0.0-beta.45"
-    synckit: "npm:^0.11.11"
-  bin:
-    unrun: dist/cli.js
-  checksum: 10/ad19041cd11965d6395a3d7575a69558fcf9726692b7198519b46c270eb75638982dc0e1db5a4196b74a5a61bfb41636265f324a159242170477f36fff2147a3
   languageName: node
   linkType: hard
 
