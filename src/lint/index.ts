@@ -16,6 +16,7 @@ export default createCLICommand({
   command: 'eslint',
   name: 'lint',
   description: 'Run ESLint to lint the codebase',
+  supportsWorkspaces: true,
   config: {
     flag: ['--config', '-c'],
     fileNames: configFiles,

@@ -8,6 +8,7 @@ export default createCLICommand({
   name: 'lib',
   command: 'tsdown',
   description: 'Compile TypeScript library code using TSDown',
+  supportsWorkspaces: true,
   config: {
     flag: ['--config', '-c'],
     fileNames: [
@@ -19,7 +20,5 @@ export default createCLICommand({
       'tsdown.config.cts',
     ],
     defaultConfigPath: hereLib('./config/tsdown'),
-  }
-
-
+  },
 })
