@@ -1,3 +1,10 @@
+## [2.1.6](https://github.com/imccausl/dev-scripts/compare/v2.1.5...v2.1.6) (2025-11-16)
+
+
+### Bug Fixes
+
+* typescript dependency resolution issue ([d38b288](https://github.com/imccausl/dev-scripts/commit/d38b288e202aa0c68e03f49dfbd5460e8c11218a))
+
 ## [2.1.5](https://github.com/imccausl/dev-scripts/compare/v2.1.4...v2.1.5) (2025-11-16)
 
 
