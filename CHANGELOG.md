@@ -1,3 +1,10 @@
+# [2.3.0](https://github.com/imccausl/dev-scripts/compare/v2.2.0...v2.3.0) (2025-11-16)
+
+
+### Features
+
+* better integration with workspaces/monorepos ([#109](https://github.com/imccausl/dev-scripts/issues/109)) ([19b2ebb](https://github.com/imccausl/dev-scripts/commit/19b2ebb2ee043b4ff0434eaba051cc50391b14cf))
+
 # [2.2.0](https://github.com/imccausl/dev-scripts/compare/v2.1.7...v2.2.0) (2025-11-16)
 
 
