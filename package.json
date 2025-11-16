@@ -1,6 +1,6 @@
 {
   "name": "@imccausl/dev",
-  "version": "2.1.7",
+  "version": "2.2.0",
   "type": "module",
   "scripts": {
     "clean": "rm -rf lib",
