@@ -89,6 +89,7 @@
     "@semantic-release/npm": "^13.1.1",
     "@semantic-release/release-notes-generator": "^14.1.0",
     "@tanstack/eslint-plugin-query": "^5.91.2",
+    "@testing-library/dom": "^10.4.1",
     "@typescript-eslint/eslint-plugin": "^8.46.3",
     "@typescript-eslint/parser": "^8.46.3",
     "@typescript-eslint/types": "^8.46.3",
@@ -105,11 +106,13 @@
     "find-up": "^8.0.0",
     "jiti": "^2.4.2",
     "prettier": "^3.6.2",
+    "read-package-up": "^11.0.0",
     "semantic-release": "^25.0.2",
     "tsdown": "^0.16.4",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.4",
     "vite": "^7.2.2",
+    "vitest": "^4.0.6",
     "yaml": "^2.8.1"
   },
   "peerDependencies": {

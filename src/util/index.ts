@@ -141,11 +141,19 @@ export function resolveConfigFile(
   )
 }
 
-export function hasExistingConfig(
+export async function hasExistingConfig(
   configFiles: string[],
+  predicate?: (file: string) => Promise<boolean>,
   cwd?: string,
-): boolean {
-  return findExistingConfig(configFiles, cwd) !== null
+): Promise<boolean> {
+  const existingConfigPath = findExistingConfig(configFiles, cwd)
+  if (!existingConfigPath) {
+    return false
+  }
+  if (!predicate) {
+    return true
+  }
+  return predicate(existingConfigPath)
 }
 
 export function findExistingConfig(
@@ -194,7 +202,7 @@ export function here(p: string, dirname = __dirname) {
   return path.join(dirname, p)
 }
 
-export type AdditionalArgs = (args: string[]) => string[]
+export type AdditionalArgs = (args: string[]) => Promise<string[]>
 
 async function execute(command: string, args: string[], options = {}) {
   const { promise, resolve, reject } = Promise.withResolvers<number>()
@@ -216,7 +224,7 @@ async function execute(command: string, args: string[], options = {}) {
 
 export async function run(
   tool: string,
-  additionalArgs: AdditionalArgs = () => [],
+  additionalArgs: AdditionalArgs = async () => [],
   options?: { args?: string[]; cwd?: string },
 ) {
   const args = options?.args ?? process.argv.slice(1)
@@ -228,7 +236,7 @@ export async function run(
   }
 
   try {
-    const scriptArgs = [...additionalArgs(args), ...args]
+    const scriptArgs = [...(await additionalArgs(args)), ...args]
     const { manager, hasExec } = detectPackageManager(cwd)
     const toolInfo = getDevScriptsToolPath(tool, cwd)
     const hostHasTool = isToolAvailable(tool, cwd)

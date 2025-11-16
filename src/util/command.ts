@@ -26,6 +26,7 @@ interface ConfigDefaults {
   flag?: string | string[]
   fileNames: string[]
   defaultConfigPath: string
+  predicate?: (file: string) => Promise<boolean>
 }
 
 type TransformArgsFunc = (args: string[]) => string[]
@@ -59,7 +60,7 @@ function ensureIgnore(
   return [flagValues[0], ignore.defaultIgnorePath]
 }
 
-function ensureConfig(
+async function ensureConfig(
   args: string[],
   config: ConfigDefaults | undefined,
   cwd: string,
@@ -73,7 +74,8 @@ function ensureConfig(
   const hasConfigArg =
     args.some((arg) => {
       return flagValues.includes(arg)
-    }) || hasExistingConfig(config.fileNames, cwd)
+    }) ||
+    (await hasExistingConfig(config.fileNames, config.predicate, cwd))
 
   if (hasConfigArg) {
     return []
@@ -241,10 +243,10 @@ export const createCLICommand = ({
   transforms,
   supportsWorkspaces = false,
 }: CLICommandOptions) => {
-  const buildArgs = (incomingArgs: string[], cwd: string) => {
+  const buildArgs = async (incomingArgs: string[], cwd: string) => {
     return [
       ...seedBaseArgs(incomingArgs, baseArgs),
-      ...ensureConfig(incomingArgs, config, cwd),
+      ...(await ensureConfig(incomingArgs, config, cwd)),
       ...ensureIgnore(incomingArgs, ignore, cwd),
       ...applyTransforms(incomingArgs, transforms),
     ]
