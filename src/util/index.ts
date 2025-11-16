@@ -152,7 +152,7 @@ export async function run(
   tool: string,
   additionalArgs: AdditionalArgs = () => [],
 ) {
-  const args = process.argv.slice(2)
+  const args = process.argv.slice(1)
   if (args.includes('--version') || args.includes('-v')) {
     const pkg = JSON.parse(fs.readFileSync(here('../../package.json'), 'utf8'))
     console.log(pkg.version || 'unknown')
