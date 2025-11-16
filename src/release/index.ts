@@ -20,7 +20,7 @@ export default createCommand({
     ],
     defaultConfigPath: hereRelease('./config/index.js'),
   },
-   action: async ({ configPath }) => {
+  action: async ({ configPath }) => {
     const parsedConfig = configPath ? await parseConfig(configPath) : null
     if (!parsedConfig) {
       throw new Error(

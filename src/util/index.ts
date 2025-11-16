@@ -162,29 +162,30 @@ export async function run(
   try {
     const scriptArgs = [...additionalArgs(args), ...args]
     const { manager, hasExec } = detectPackageManager()
-    const [command, execArgs] = getExecCommand(manager, hasExec)
+    const toolInfo = getDevScriptsToolPath(tool)
+    const hostHasTool = isToolAvailable(tool)
+    const shouldUseBundled =
+      (!hostHasTool && toolInfo) || (manager === 'yarn' && !hasExec && toolInfo)
 
-    if (!isToolAvailable(tool)) {
-      const toolInfo = getDevScriptsToolPath(tool)
-      if (toolInfo) {
-        console.log(`${tool} not found in host project, using from dev-scripts`)
-        const child = spawn(
-          toolInfo.command,
-          [...toolInfo.args, ...scriptArgs],
-          {
-            stdio: 'inherit',
-          },
-        )
-
-        child.on('exit', (code) => process.exit(code || 0))
-        child.on('error', (error) => {
-          console.error(`Failed to start ${tool}:`, error)
-          process.exit(2)
-        })
-        return
-      }
-      throw new Error(`${tool} not found in host project or dev-scripts`)
+    if (shouldUseBundled) {
+      console.log(
+        `${tool} not found with ${manager} exec, using bundled version from dev-scripts`,
+      )
+      const bundled = spawn(
+        toolInfo.command,
+        [...toolInfo.args, ...scriptArgs],
+        { stdio: 'inherit' },
+      )
+      bundled.on('exit', (code) => process.exit(code || 0))
+      bundled.on('error', (error) => {
+        console.error(`Failed to start ${tool}:`, error)
+        process.exit(2)
+      })
+      return
     }
+    if (!hostHasTool)
+      throw new Error(`${tool} not found in host project or dev-scripts`)
+    const [command, execArgs] = getExecCommand(manager, hasExec)
 
     const child = spawn(command, [...execArgs, tool, ...scriptArgs], {
       stdio: 'inherit',
