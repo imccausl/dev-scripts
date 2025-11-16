@@ -4,6 +4,8 @@ import { createRequire } from 'node:module'
 import path, { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
+import { findUpSync as findUp } from 'find-up'
+
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
@@ -11,8 +13,9 @@ const require = createRequire(import.meta.url)
 
 function getDevScriptsToolPath(
   tool: string,
+  cwd = process.cwd(),
 ): { command: string; args: string[] } | null {
-  if (isYarnPnP()) {
+  if (isYarnPnP(cwd)) {
     try {
       const toolPackagePath = require.resolve(`${tool}/package.json`)
       const toolDir = path.dirname(toolPackagePath)
@@ -53,9 +56,9 @@ export function getExecCommand(
   return ['npx', []]
 }
 
-function isToolAvailable(tool: string, cwd?: string): boolean {
+function isToolAvailable(tool: string, cwd = process.cwd()): boolean {
   try {
-    const { manager, hasExec } = detectPackageManager()
+    const { manager, hasExec } = detectPackageManager(cwd)
     const [command, execArgs] = getExecCommand(manager, hasExec)
 
     const options = cwd
@@ -72,45 +75,54 @@ function isToolAvailable(tool: string, cwd?: string): boolean {
   }
 }
 
-export function detectPackageManager(): { manager: string; hasExec: boolean } {
-  if (hasFile('yarn.lock')) {
-    try {
-      const yarnVersion = execSync('yarn --version', {
-        encoding: 'utf8',
-      }).trim()
-      const majorVersion = parseInt(yarnVersion.split('.')[0])
-      return { manager: 'yarn', hasExec: majorVersion >= 2 }
-    } catch {
-      return { manager: 'yarn', hasExec: false }
-    }
+export function detectPackageManager(cwd = process.cwd()): {
+  manager: string
+  hasExec: boolean
+} {
+  const userAgent = process.env.npm_config_user_agent ?? null
+  if (process.versions.pnp || findUp('.pnp.cjs', { cwd })) {
+    return { manager: 'yarn', hasExec: true }
   }
 
-  if (hasFile('pnpm-lock.yaml')) return { manager: 'pnpm', hasExec: true }
-  if (hasFile('package-lock.json')) return { manager: 'npm', hasExec: false }
+  if (userAgent?.startsWith('yarn/')) return { manager: 'yarn', hasExec: true }
+  if (findUp('pnpm-lock.yaml', { cwd }))
+    return { manager: 'pnpm', hasExec: true }
+  if (findUp('package-lock.json', { cwd }))
+    return { manager: 'npm', hasExec: false }
   return { manager: 'npx', hasExec: false }
 }
 
-export function isYarnPnP(): boolean {
+export function isYarnPnP(cwd = process.cwd()): boolean {
   return (
     process.versions.pnp !== undefined ||
-    hasFile('.pnp.cjs') ||
-    hasFile('.pnp.js')
+    !!findUp('.pnp.cjs', { cwd }) ||
+    !!findUp('.pnp.js', { cwd })
   )
 }
 
-export function resolveConfigFile(configFilePath: string, preferCJS = false) {
-  if (hasFile(configFilePath)) {
-    return configFilePath
+export function resolveConfigFile(
+  configFilePath: string,
+  preferCJS = false,
+  cwd?: string,
+) {
+  const baseDir = cwd ?? process.cwd()
+  const resolved = path.isAbsolute(configFilePath)
+    ? configFilePath
+    : path.join(baseDir, configFilePath)
+
+  if (hasFile(resolved)) {
+    return resolved
   }
 
   const defaultExtensionsToCheck = ['.ts', '.mjs', '.js', '.cjs']
   const extensionsToCheck = preferCJS
-    ? defaultExtensionsToCheck.reverse()
+    ? [...defaultExtensionsToCheck].reverse()
     : defaultExtensionsToCheck
 
   const possiblePaths = extensionsToCheck.map((ext) => {
     return () => {
-      const filePath = `${configFilePath}${ext}`
+      const filePath = `${resolved}${ext}`
+      console.log(`Checking for config file: ${filePath}`)
       if (hasFile(filePath)) return filePath
       throw new Error(`File not found: ${filePath}`)
     }
@@ -125,28 +137,65 @@ export function resolveConfigFile(configFilePath: string, preferCJS = false) {
   }
 
   throw new Error(
-    `Could not find config file. Checked for these files: ${defaultExtensionsToCheck.map((ext) => `${configFilePath}${ext}`).join(', ')}`,
+    `Could not find config file. Checked for these files: ${defaultExtensionsToCheck.map((ext) => `${resolved}${ext}`).join(', ')}`,
   )
 }
 
 export async function hasExistingConfig(
   configFiles: string[],
   predicate?: (file: string) => Promise<boolean>,
+  cwd?: string,
 ): Promise<boolean> {
+  const existingConfigPath = findExistingConfig(configFiles, cwd)
+  if (!existingConfigPath) {
+    return false
+  }
+  if (!predicate) {
+    return true
+  }
+  return predicate(existingConfigPath)
+}
+
+export function findExistingConfig(
+  configFiles: string[],
+  cwd?: string,
+): string | null {
+  const baseDir = path.resolve(cwd ?? process.cwd())
+
+  const tryResolve = (filePath: string, fromDir: string): string | null => {
+    const resolved = path.isAbsolute(filePath)
+      ? filePath
+      : path.join(fromDir, filePath)
+    return fs.existsSync(resolved) ? resolved : null
+  }
+
   for (const file of configFiles) {
-    if (hasFile(file)) {
-      return !predicate || (await predicate(file))
+    if (path.isAbsolute(file)) {
+      if (fs.existsSync(file)) return file
+      continue
+    }
+
+    let currentDir = baseDir
+
+    while (true) {
+      const found = tryResolve(file, currentDir)
+      if (found) return found
+
+      const parentDir = path.dirname(currentDir)
+      if (parentDir === currentDir) break
+      currentDir = parentDir
     }
   }
-  return false
+
+  return null
 }
 
-export function findExistingConfig(configFiles: string[]): string | null {
-  return configFiles.find((file) => hasFile(file)) ?? null
-}
-
-export function hasFile(filePath: string): boolean {
-  return fs.existsSync(filePath)
+export function hasFile(filePath: string, cwd?: string): boolean {
+  const baseDir = cwd ?? process.cwd()
+  const resolved = path.isAbsolute(filePath)
+    ? filePath
+    : path.join(baseDir, filePath)
+  return fs.existsSync(resolved)
 }
 
 export function here(p: string, dirname = __dirname) {
@@ -167,7 +216,7 @@ async function execute(command: string, args: string[], options = {}) {
     resolve(code || 0)
   })
   child.on('error', (error) => {
-    reject(error.message)
+    reject(error)
   })
 
   return promise
@@ -176,44 +225,40 @@ async function execute(command: string, args: string[], options = {}) {
 export async function run(
   tool: string,
   additionalArgs: AdditionalArgs = async () => [],
+  options?: { args?: string[]; cwd?: string },
 ) {
-  const args = process.argv.slice(1)
+  const args = options?.args ?? process.argv.slice(1)
+  const cwd = options?.cwd ?? process.cwd()
   if (args.includes('--version') || args.includes('-v')) {
     const pkg = JSON.parse(fs.readFileSync(here('../../package.json'), 'utf8'))
     console.log(pkg.version || 'unknown')
-    return
+    return 0
   }
 
   try {
     const scriptArgs = [...(await additionalArgs(args)), ...args]
-    const { manager, hasExec } = detectPackageManager()
-    const toolInfo = getDevScriptsToolPath(tool)
-    const hostHasTool = isToolAvailable(tool)
-    const shouldUseBundled =
-      (!hostHasTool && toolInfo) || (manager === 'yarn' && !hasExec && toolInfo)
+    const { manager, hasExec } = detectPackageManager(cwd)
+    const toolInfo = getDevScriptsToolPath(tool, cwd)
+    const hostHasTool = isToolAvailable(tool, cwd)
 
-    if (shouldUseBundled) {
+    if (!hostHasTool) {
+      if (!toolInfo) {
+        throw new Error(`${tool} not found in host project or dev-scripts`)
+      }
       console.log(
-        `${tool} not found with ${manager} exec, using bundled version from dev-scripts`,
+        `${tool} not found in host project, using bundled from dev-scripts`,
       )
-      const exitCode = await execute(toolInfo.command, [
-        ...toolInfo.args,
-        ...scriptArgs,
-      ])
-      process.exit(exitCode)
+      return await execute(
+        toolInfo.command,
+        [...toolInfo.args, ...scriptArgs],
+        { cwd },
+      )
     }
-    if (!hostHasTool)
-      throw new Error(`${tool} not found in host project or dev-scripts`)
-    const [command, execArgs] = getExecCommand(manager, hasExec)
 
-    const exitCode = await execute(command, [...execArgs, tool, ...scriptArgs])
-    process.exit(exitCode)
+    const [command, execArgs] = getExecCommand(manager, hasExec)
+    return await execute(command, [...execArgs, tool, ...scriptArgs], { cwd })
   } catch (error) {
-    if (error instanceof Error) {
-      console.error(`Error running ${tool}:`, error)
-      process.exit(process.exitCode || 1)
-    }
-    console.error(`Unknown error running ${tool}:`, error)
-    process.exit(process.exitCode || 1)
+    console.error(`${tool} error:`, error)
+    return 2
   }
 }

@@ -103,6 +103,7 @@
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-testing-library": "^7.13.3",
+    "find-up": "^8.0.0",
     "jiti": "^2.4.2",
     "prettier": "^3.6.2",
     "read-package-up": "^11.0.0",
@@ -123,6 +124,7 @@
     "@commitlint/cli": "^20.1.0",
     "@commitlint/config-conventional": "^20.0.0",
     "@types/eslint-plugin-jsx-a11y": "^6",
+    "@types/find-up": "^4.0.2",
     "@types/node": "^22.0.0",
     "@yarnpkg/sdks": "^3.2.3",
     "tsx": "^4.20.6"

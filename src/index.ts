@@ -67,6 +67,9 @@ ${await showAvailableScripts()}
 Options:
   -h, --help     Show help
   -v, --version  Show version
+  --workspace    Run the script in a specific workspace (repeatable)
+  --workspaces   Comma-separated list of workspaces to run
+  --all-workspaces  Run the script in every workspace
 
 Examples:
   dev lint src/

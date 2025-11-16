@@ -10,6 +10,7 @@ export function createViteCommand(mode: ViteMode) {
     command: 'vite',
     description: `Run Vite in ${mode} mode`,
     baseArgs: [mode],
+    supportsWorkspaces: true,
     config: {
       flag: '--config',
       fileNames: [

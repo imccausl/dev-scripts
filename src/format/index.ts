@@ -19,6 +19,7 @@ export default createCLICommand({
   command: 'prettier',
   name: 'format',
   description: 'Run Prettier to format the codebase',
+  supportsWorkspaces: true,
   config: {
     flag: ['--config', '-c'],
     fileNames: [
