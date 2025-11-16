@@ -1,3 +1,10 @@
+## [2.1.7](https://github.com/imccausl/dev-scripts/compare/v2.1.6...v2.1.7) (2025-11-16)
+
+
+### Bug Fixes
+
+* running tool should not fall back to npx with yarn ([b9dda55](https://github.com/imccausl/dev-scripts/commit/b9dda55a43c59ed2788056c0d894721381d7c4fe))
+
 ## [2.1.6](https://github.com/imccausl/dev-scripts/compare/v2.1.5...v2.1.6) (2025-11-16)
 
 
