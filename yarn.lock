@@ -837,6 +837,7 @@ __metadata:
     eslint-plugin-testing-library: "npm:^7.13.3"
     jiti: "npm:^2.4.2"
     prettier: "npm:^3.6.2"
+    read-package-up: "npm:^11.0.0"
     semantic-release: "npm:^25.0.1"
     tsdown: "npm:^0.15.12"
     tsx: "npm:^4.20.6"
