@@ -145,14 +145,41 @@ export function hasExistingConfig(
   configFiles: string[],
   cwd?: string,
 ): boolean {
-  return configFiles.some((file) => hasFile(file, cwd))
+  return findExistingConfig(configFiles, cwd) !== null
 }
 
 export function findExistingConfig(
   configFiles: string[],
   cwd?: string,
 ): string | null {
-  return configFiles.find((file) => hasFile(file, cwd)) ?? null
+  const baseDir = path.resolve(cwd ?? process.cwd())
+
+  const tryResolve = (filePath: string, fromDir: string): string | null => {
+    const resolved = path.isAbsolute(filePath)
+      ? filePath
+      : path.join(fromDir, filePath)
+    return fs.existsSync(resolved) ? resolved : null
+  }
+
+  for (const file of configFiles) {
+    if (path.isAbsolute(file)) {
+      if (fs.existsSync(file)) return file
+      continue
+    }
+
+    let currentDir = baseDir
+
+    while (true) {
+      const found = tryResolve(file, currentDir)
+      if (found) return found
+
+      const parentDir = path.dirname(currentDir)
+      if (parentDir === currentDir) break
+      currentDir = parentDir
+    }
+  }
+
+  return null
 }
 
 export function hasFile(filePath: string, cwd?: string): boolean {
