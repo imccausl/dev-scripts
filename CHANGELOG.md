@@ -1,3 +1,10 @@
+## [2.1.4](https://github.com/imccausl/dev-scripts/compare/v2.1.3...v2.1.4) (2025-11-16)
+
+
+### Bug Fixes
+
+* some args not passed through to command ([953c1d2](https://github.com/imccausl/dev-scripts/commit/953c1d264a7842ee387bc4193e48e2d7086e52cb))
+
 ## [2.1.3](https://github.com/imccausl/dev-scripts/compare/v2.1.2...v2.1.3) (2025-11-04)
 
 
