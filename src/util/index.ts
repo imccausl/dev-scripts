@@ -178,7 +178,6 @@ export async function run(
   additionalArgs: AdditionalArgs = async () => [],
 ) {
   const args = process.argv.slice(1)
-  console.log('args:', args)
   if (args.includes('--version') || args.includes('-v')) {
     const pkg = JSON.parse(fs.readFileSync(here('../../package.json'), 'utf8'))
     console.log(pkg.version || 'unknown')
@@ -188,20 +187,24 @@ export async function run(
   try {
     const scriptArgs = [...(await additionalArgs(args)), ...args]
     const { manager, hasExec } = detectPackageManager()
-    const [command, execArgs] = getExecCommand(manager, hasExec)
+    const toolInfo = getDevScriptsToolPath(tool)
+    const hostHasTool = isToolAvailable(tool)
+    const shouldUseBundled =
+      (!hostHasTool && toolInfo) || (manager === 'yarn' && !hasExec && toolInfo)
 
-    if (!isToolAvailable(tool)) {
-      const toolInfo = getDevScriptsToolPath(tool)
-      if (toolInfo) {
-        console.log(`${tool} not found in host project, using from dev-scripts`)
-        const exitCode = await execute(toolInfo.command, [
-          ...toolInfo.args,
-          ...scriptArgs,
-        ])
-        process.exit(exitCode)
-      }
-      throw new Error(`${tool} not found in host project or dev-scripts`)
+    if (shouldUseBundled) {
+      console.log(
+        `${tool} not found with ${manager} exec, using bundled version from dev-scripts`,
+      )
+      const exitCode = await execute(toolInfo.command, [
+        ...toolInfo.args,
+        ...scriptArgs,
+      ])
+      process.exit(exitCode)
     }
+    if (!hostHasTool)
+      throw new Error(`${tool} not found in host project or dev-scripts`)
+    const [command, execArgs] = getExecCommand(manager, hasExec)
 
     const exitCode = await execute(command, [...execArgs, tool, ...scriptArgs])
     process.exit(exitCode)

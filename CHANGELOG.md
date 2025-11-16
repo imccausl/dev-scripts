@@ -1,3 +1,38 @@
+## [2.1.7](https://github.com/imccausl/dev-scripts/compare/v2.1.6...v2.1.7) (2025-11-16)
+
+
+### Bug Fixes
+
+* running tool should not fall back to npx with yarn ([b9dda55](https://github.com/imccausl/dev-scripts/commit/b9dda55a43c59ed2788056c0d894721381d7c4fe))
+
+## [2.1.6](https://github.com/imccausl/dev-scripts/compare/v2.1.5...v2.1.6) (2025-11-16)
+
+
+### Bug Fixes
+
+* typescript dependency resolution issue ([d38b288](https://github.com/imccausl/dev-scripts/commit/d38b288e202aa0c68e03f49dfbd5460e8c11218a))
+
+## [2.1.5](https://github.com/imccausl/dev-scripts/compare/v2.1.4...v2.1.5) (2025-11-16)
+
+
+### Bug Fixes
+
+* disable fixedExtension for build ([2e3a64d](https://github.com/imccausl/dev-scripts/commit/2e3a64d31f950a20798dbf99fd31e316dd3321cd))
+
+## [2.1.4](https://github.com/imccausl/dev-scripts/compare/v2.1.3...v2.1.4) (2025-11-16)
+
+
+### Bug Fixes
+
+* some args not passed through to command ([953c1d2](https://github.com/imccausl/dev-scripts/commit/953c1d264a7842ee387bc4193e48e2d7086e52cb))
+
+## [2.1.3](https://github.com/imccausl/dev-scripts/compare/v2.1.2...v2.1.3) (2025-11-04)
+
+
+### Bug Fixes
+
+* update dependencies ([c2523bd](https://github.com/imccausl/dev-scripts/commit/c2523bde8ad9fd3dd6b5250fbd3807bc3f62af2d))
+
 ## [2.1.2](https://github.com/imccausl/dev-scripts/compare/v2.1.1...v2.1.2) (2025-11-02)
 
 
