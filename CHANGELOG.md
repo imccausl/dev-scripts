@@ -1,3 +1,10 @@
+# [2.2.0](https://github.com/imccausl/dev-scripts/compare/v2.1.7...v2.2.0) (2025-11-16)
+
+
+### Features
+
+* add test command via vitest ([#101](https://github.com/imccausl/dev-scripts/issues/101)) ([b6dca50](https://github.com/imccausl/dev-scripts/commit/b6dca50646c6319f2a45f8f20511add17f38f653))
+
 ## [2.1.7](https://github.com/imccausl/dev-scripts/compare/v2.1.6...v2.1.7) (2025-11-16)
 
 
