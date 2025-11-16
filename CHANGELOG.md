@@ -1,3 +1,10 @@
+## [2.1.5](https://github.com/imccausl/dev-scripts/compare/v2.1.4...v2.1.5) (2025-11-16)
+
+
+### Bug Fixes
+
+* disable fixedExtension for build ([2e3a64d](https://github.com/imccausl/dev-scripts/commit/2e3a64d31f950a20798dbf99fd31e316dd3321cd))
+
 ## [2.1.4](https://github.com/imccausl/dev-scripts/compare/v2.1.3...v2.1.4) (2025-11-16)
 
 
