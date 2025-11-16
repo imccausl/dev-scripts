@@ -1,6 +1,7 @@
 import fs, { globSync } from 'node:fs'
 import path from 'node:path'
 
+import { readPackageUpSync } from 'read-package-up'
 import YAML from 'yaml'
 
 type PackageJson = Record<string, unknown> & {
@@ -21,8 +22,18 @@ export type MonorepoInfo = {
   workspaces: WorkspaceInfo[]
 }
 
-function readPackageJson(packagePath: string): PackageJson {
-  return JSON.parse(fs.readFileSync(packagePath, 'utf8'))
+function readPackageFromDir(dir: string): {
+  packageJson: PackageJson
+  manifestPath: string
+} | null {
+  const resolvedDir = path.resolve(dir)
+  const result = readPackageUpSync({ cwd: resolvedDir, normalize: false })
+  if (!result) return null
+  if (path.dirname(result.path) !== resolvedDir) return null
+  return {
+    packageJson: result.packageJson as PackageJson,
+    manifestPath: result.path,
+  }
 }
 
 function hasPnpmWorkspaceFile(dir: string) {
@@ -56,21 +67,16 @@ function getWorkspacePatterns(packageJson: PackageJson, dir: string): string[] {
 }
 
 function makeWorkspaceInfo(dir: string, rootDir: string): WorkspaceInfo | null {
-  const manifestPath = path.join(dir, 'package.json')
-  if (!fs.existsSync(manifestPath)) return null
+  const pkg = readPackageFromDir(dir)
+  if (!pkg) return null
 
-  try {
-    const packageJson = readPackageJson(manifestPath)
-    const name = packageJson.name ?? path.relative(rootDir, dir)
-    return {
-      name,
-      dir,
-      relativeDir: path.relative(rootDir, dir) || '.',
-      manifestPath,
-      packageJson,
-    }
-  } catch {
-    return null
+  const name = pkg.packageJson.name ?? path.relative(rootDir, dir)
+  return {
+    name,
+    dir,
+    relativeDir: path.relative(rootDir, dir) || '.',
+    manifestPath: pkg.manifestPath,
+    packageJson: pkg.packageJson,
   }
 }
 
@@ -102,17 +108,14 @@ function resolveWorkspaceDirs(rootDir: string, patterns: string[]): WorkspaceInf
 }
 
 function readRootInfo(dir: string): WorkspaceInfo {
-  const manifestPath = path.join(dir, 'package.json')
-  const packageJson = fs.existsSync(manifestPath)
-    ? readPackageJson(manifestPath)
-    : ({} as PackageJson)
+  const pkg = readPackageFromDir(dir)
 
   return {
-    name: packageJson.name ?? path.basename(dir),
+    name: pkg?.packageJson.name ?? path.basename(dir),
     dir,
     relativeDir: '.',
-    manifestPath,
-    packageJson,
+    manifestPath: pkg?.manifestPath ?? path.join(dir, 'package.json'),
+    packageJson: pkg?.packageJson ?? ({} as PackageJson),
   }
 }
 
@@ -122,13 +125,12 @@ function findWorkspaceRoot(startDir: string): { dir: string; manifestPath: strin
   const fallbackManifest = path.join(dir, 'package.json')
 
   while (true) {
-    const manifestPath = path.join(dir, 'package.json')
-    if (fs.existsSync(manifestPath)) {
-      const packageJson = readPackageJson(manifestPath)
-      if (packageJson.workspaces || hasPnpmWorkspaceFile(dir)) {
-        return { dir, manifestPath }
+    const pkg = readPackageFromDir(dir)
+    if (pkg) {
+      if (pkg.packageJson.workspaces || hasPnpmWorkspaceFile(dir)) {
+        return { dir, manifestPath: pkg.manifestPath }
       }
-      lastPackage = { dir, manifestPath }
+      lastPackage = { dir, manifestPath: pkg.manifestPath }
     }
 
     const parent = path.dirname(dir)
