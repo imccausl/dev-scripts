@@ -839,7 +839,7 @@ __metadata:
     find-up: "npm:^8.0.0"
     jiti: "npm:^2.4.2"
     prettier: "npm:^3.6.2"
-    read-package-up: "npm:^11.0.0"
+    read-package-up: "npm:^12.0.0"
     semantic-release: "npm:^25.0.2"
     tsdown: "npm:^0.16.4"
     tsx: "npm:^4.20.6"
