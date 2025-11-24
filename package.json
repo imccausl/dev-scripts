@@ -108,7 +108,7 @@
     "prettier": "^3.6.2",
     "read-package-up": "^11.0.0",
     "semantic-release": "^25.0.2",
-    "tsdown": "^0.16.4",
+    "tsdown": "^0.16.6",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.4",
     "vite": "^7.2.2",
