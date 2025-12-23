@@ -1,3 +1,10 @@
+## [2.3.1](https://github.com/imccausl/dev-scripts/compare/v2.3.0...v2.3.1) (2025-12-23)
+
+
+### Bug Fixes
+
+* add shebang to entrypoint script ([ea75eb1](https://github.com/imccausl/dev-scripts/commit/ea75eb1fdec266193045659a2941fee5ffc5f3e3))
+
 # [2.3.0](https://github.com/imccausl/dev-scripts/compare/v2.2.0...v2.3.0) (2025-11-16)
 
 
