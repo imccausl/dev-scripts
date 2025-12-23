@@ -5,4 +5,7 @@ export default defineMergedConfig({
   copy: [{ from: 'src/format/config', to: 'lib/format/config' }, 'src/types'],
   fixedExtension: false,
   unbundle: true,
+  banner: {
+    js: '#!/usr/bin/env node',
+  },
 })
